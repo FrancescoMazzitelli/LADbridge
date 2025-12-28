@@ -3,6 +3,7 @@ from extras.flask_restx import Namespace, Resource, reqparse, inputs
 from werkzeug.datastructures import FileStorage, ImmutableDict
 from service.controlService import Controller
 import json
+import os
 
 api = Namespace("control", description="Services management and orchestration")
 
@@ -30,13 +31,10 @@ class ConversationalAgent(Resource):
     @api.expect(control_parser)
     def post(self):
         args = control_parser.parse_args()
-        data = args['input']
+        user_input = args['input']
         file_input = args['file']
-        json_input = json.loads(data)
-        print(f"String input: {json_input['input']}")
-        print(f"File ricevuti: {file_input}")
 
-        #controller = Controller()
-        #results = controller.control(user_input, file_input)
+        controller = Controller()
+        results = controller.control(user_input, file_input)
 
-        return jsonify("results")
+        return jsonify(results)

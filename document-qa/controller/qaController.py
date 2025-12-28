@@ -97,7 +97,7 @@ class Registration(Resource):
                 endpoint_key = f"{method.upper()} {path}"
                 desc = details.get("description") or details.get("summary") or details.get("operationId") or method
                 capabilities[endpoint_key] = desc
-                endpoints[endpoint_key] = f"http://{host_url}{base_path}{path}"
+                endpoints[endpoint_key] = f"http://{host_url}{path}"
 
         catalog_payload = {
             "id": service_id,
@@ -116,7 +116,7 @@ class Registration(Resource):
             "Check": {
                 "TlsSkipVerify": True,
                 "Method": "GET",
-                "Http": f"http://{SERVICE_HOST}:{SERVICE_PORT}{base_path}/health",
+                "Http": f"http://{SERVICE_HOST}:{SERVICE_PORT}/api/qa/health",
                 "Interval": "10s",
                 "Timeout": "5s",
                 "DeregisterCriticalServiceAfter": "30s"
@@ -151,4 +151,4 @@ class Registration(Resource):
 class Healthcheck(Resource):
     @api.doc(summary="Health check", description="Return HTTP 200 if the service is running")
     def get(self):
-        return {"status": "OK"}, 200
+        return {}, 200

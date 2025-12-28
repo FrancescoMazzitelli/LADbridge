@@ -17,8 +17,16 @@ file_upload_parser.add_argument(
     location='files',
     type='FileStorage', 
     required=True, 
-    help='File to upload (PDF, CSV, DOCX, ecc.)'
+    help='File to upload (PDF)'
 )
+
+SERVICE_ID = os.environ.get("SERVICE_ID", 0)
+SERVICE_HOST = os.environ.get("SERVICE_HOST", "localhost")
+SERVICE_PORT = int(os.environ.get("SERVICE_PORT", 5700))
+GATEWAY_HOST = os.environ.get("GATEWAY_HOST", "localhost")
+GATEWAY_PORT = os.environ.get("GATEWAY_PORT", 5000)
+CONSUL_HOST = os.environ.get("CONSUL_HOST", "localhost")
+CONSUL_PORT = os.environ.get("CONSUL_PORT", 8500)
 
 model_name = "phi4-reasoning:14b"
 datadoc = None
@@ -161,6 +169,88 @@ class Fill(Resource):
                 print(f"⚠️ Errors during 'uploads/' directory cleaning: {e}")
 
         return response
+    
+
+@api.route("/register")
+class Registration(Resource):
+    @api.doc(summary="", description="Register the service to the registry for discovery (catalog + consul).")
+    def post(self):
+        swagger_url = f"http://{SERVICE_HOST}:{SERVICE_PORT}/swagger.json"
+        try:
+            spec = requests.get(swagger_url).json()
+        except Exception as e:
+            return {"error": f"Cannot fetch swagger spec: {str(e)}"}, 500
+
+        service_name = spec.get("info", {}).get("title", "unknown-service")
+        service_id = SERVICE_ID
+        description = spec.get("info", {}).get("description", "No description")
+        paths = spec.get("paths", {})
+
+        host_url = f"{SERVICE_HOST}:{SERVICE_PORT}"
+        base_path = spec.get("basePath", "")
+
+        capabilities = {}
+        endpoints = {}
+        for path, methods in paths.items():
+            for method, details in methods.items():
+                endpoint_key = f"{method.upper()} {path}"
+                desc = details.get("description") or details.get("summary") or details.get("operationId") or method
+                capabilities[endpoint_key] = desc
+                endpoints[endpoint_key] = f"http://{host_url}{path}"
+
+        catalog_payload = {
+            "id": service_id,
+            "name": service_name,
+            "description": description,
+            "capabilities": capabilities,
+            "endpoints": endpoints
+        }
+
+        consul_payload = {
+            "Name": service_name,
+            "Id": service_id,
+            "Meta": {
+                "service_doc_id": service_id
+            },
+            "Check": {
+                "TlsSkipVerify": True,
+                "Method": "GET",
+                "Http": f"http://{SERVICE_HOST}:{SERVICE_PORT}/api/filler/health",
+                "Interval": "10s",
+                "Timeout": "5s",
+                "DeregisterCriticalServiceAfter": "30s"
+            }
+        }
+
+        try:
+            consul_response = requests.put(
+                f"http://{CONSUL_HOST}:{CONSUL_PORT}/v1/agent/service/register",
+                json=consul_payload
+            )
+        except Exception as e:
+            return {"error": f"Cannot register service on Consul: {str(e)}"}, 500
+
+        try:
+            gateway_response = requests.post(
+                f"http://{GATEWAY_HOST}:{GATEWAY_PORT}/service",
+                json=catalog_payload
+            )
+        except Exception as e:
+            return {"error": f"Cannot register service on Gateway: {str(e)}"}, 500
+
+        return {
+            "status": "success",
+            "consul_code": consul_response.status_code,
+            "gateway_code": gateway_response.status_code,
+            "catalog_payload": catalog_payload
+        }
+
+
+@api.route("/health")
+class Healthcheck(Resource):
+    @api.doc(summary="Health check", description="Return HTTP 200 if the service is running")
+    def get(self):
+        return {}, 200
 
 
 def query_ollama(prompt):

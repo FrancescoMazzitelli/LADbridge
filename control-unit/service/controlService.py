@@ -6,31 +6,37 @@ import aiohttp
 import asyncio
 import os
 import mimetypes
+import shutil
 
 class Controller:
 
     def __init__(self):
         self.model_name = "phi4-reasoning:14b"
+        os.makedirs("Files", exist_ok=True)
 
     def analyze_files(self, files: list):
         analyzed = []
-        
-        if len(files) > 0 :
+
+        if files:
             for f in files:
-                mime, _ = mimetypes.guess_type(f["filename"])
+                filename = f.filename
+                content_type = f.mimetype or mimetypes.guess_type(filename)[0]
+                size = f.content_length
+                path = os.path.join("Files", filename)
+                f.save(path)
 
                 file_info = {
-                    "filename": f["filename"],
-                    "content_type": mime,
-                    "size": f.get("size"),
-                    "path": f.get("path")
+                    "filename": filename,
+                    "content_type": content_type,
+                    "size": size,
+                    "path": path
                 }
 
-                if mime == "application/pdf":
+                if content_type == "application/pdf":
                     file_info["category"] = "document"
-                elif mime and mime.startswith("image/"):
+                elif content_type and content_type.startswith("image/"):
                     file_info["category"] = "image"
-                elif mime in ["text/csv", "application/vnd.ms-excel"]:
+                elif content_type in ["text/csv", "application/vnd.ms-excel"]:
                     file_info["category"] = "tabular"
                 else:
                     file_info["category"] = "unknown"
@@ -38,6 +44,7 @@ class Controller:
                 analyzed.append(file_info)
 
         return analyzed
+
 
      
     def query_ollama(self, prompt: str) -> str:
@@ -75,14 +82,14 @@ class Controller:
             "task_name": "analyze text",
             "service_id": "svc-001",
             "endpoint": "service endpoint",
-            "input": "text to analyze",
+            "input": "[TEXT]text to analyze[/TEXT]",
             "operation": "POST"
             },
             {
             "task_name": "retrieve report",
             "service_id": "svc-002",
             "endpoint": "service endpoint",
-            "input": "filename",
+            "input": "[FILE]filename[/FILE]",
             "operation": "GET"
             }
           ]
@@ -168,115 +175,110 @@ class Controller:
         return plan
 
 
-
     async def call_agent(self, session, task, discovered_services):
         task_name = task.get("task_name")
-        service_id = task.get("service_id")
         endpoint = task.get("endpoint")
-        input_data = task.get("input")
-        operation = task.get("operation").upper()
+        input_data = task.get("input", "")
+        operation = task.get("operation", "").upper()
 
-        response_result = {}
-        response_result['operation'] = operation
+        response_result = {
+            "task_name": task_name,
+            "operation": operation
+        }
 
-        match operation:
-            case "POST":
-                try:
-                    async with session.post(endpoint, json=input_data, timeout=5) as resp:
-                        if resp.status == 200 or resp.status == 201 or resp.status == 204:
-                            result = await resp.json()
-                            print(f"[SUCCESS] Task '{task_name}' completed: {result}")
-                            response_result["status"] = "SUCCESS"
-                            response_result["status_code"] = resp.status
-                            response_result["task_name"] = task_name
-                            response_result["result"] = result
+        tag_pattern = r"\[(\w+)\](.*?)\[/\1\]"
+        match = re.search(tag_pattern, input_data, re.DOTALL)
 
-                        else:
-                            error_text = await resp.text()
-                            print(f"[ERROR] Task '{task_name}' failed with status {resp.status}: {error_text}")
-                            response_result["status"] = "ERROR"
-                            response_result["status_code"] = resp.status
-                            response_result["task_name"] = task_name
-                            response_result["result"] = error_text
-                except Exception as e:
-                    print(f"[EXCEPTION] Error in task: '{task_name}' → {e}")
-                    response_result["status"] = "EXCEPTION"
-                    response_result["status_code"] = 500
-                    response_result["task_name"] = task_name
-                    response_result["result"] = str(e)
-            case "GET":
-                try:
-                    async with session.get(endpoint, timeout=5) as resp:
-                        if resp.status == 200:
-                            result = await resp.json()
-                            print(f"[SUCCESS] Task '{task_name}' completed: {result}")
-                            response_result["status"] = "SUCCESS"
-                            response_result["status_code"] = resp.status
-                            response_result["task_name"] = task_name
-                            response_result["result"] = result
-                        else:
-                            error_text = await resp.text()
-                            print(f"[ERROR] Task '{task_name}' failed with status {resp.status}: {error_text}")
-                            response_result["status"] = "ERROR"
-                            response_result["status_code"] = resp.status
-                            response_result["task_name"] = task_name
-                            response_result["result"] = error_text
-                except Exception as e:
-                    print(f"[EXCEPTION] Error in task: '{task_name}' → {e}")
-                    response_result["status"] = "EXCEPTION"
-                    response_result["status_code"] = 500
-                    response_result["task_name"] = task_name
-                    response_result["result"] = str(e)
-            case "DELETE":
-                try:
-                    async with session.delete(endpoint, timeout=5) as resp:
-                        if resp.status == 200 or resp.status == 201 or resp.status == 204:
-                            result = await resp.text()
-                            print(f"[SUCCESS] Task '{task_name}' completed: {result}")
-                            response_result["status"] = "SUCCESS"
-                            response_result["status_code"] = resp.status
-                            response_result["task_name"] = task_name
-                            response_result["result"] = result
-                        else:
-                            error_text = await resp.text()
-                            print(f"[ERROR] Task '{task_name}' failed with status {resp.status}: {error_text}")
-                            response_result["status"] = "ERROR"
-                            response_result["status_code"] = resp.status
-                            response_result["task_name"] = task_name
-                            response_result["result"] = error_text
-                except Exception as e:
-                    print(f"[EXCEPTION] Error in task: '{task_name}' → {e}")
-                    response_result["status"] = "EXCEPTION"
-                    response_result["status_code"] = 500
-                    response_result["task_name"] = task_name
-                    response_result["result"] = str(e)
-            case "PUT":
-                try:
-                    async with session.put(endpoint, json=input_data, timeout=5) as resp:
-                        if resp.status == 200 or resp.status == 201 or resp.status == 204:
-                            result = await resp.json()
-                            print(f"[SUCCESS] Task '{task_name}' completed: {result}")
-                            response_result["status"] = "SUCCESS"
-                            response_result["status_code"] = resp.status
-                            response_result["task_name"] = task_name
-                            response_result["result"] = result
-                        else:
-                            error_text = await resp.text()
-                            print(f"[ERROR] Task '{task_name}' failed with status {resp.status}: {error_text}")
-                            response_result["status"] = "ERROR"
-                            response_result["status_code"] = resp.status
-                            response_result["task_name"] = task_name
-                            response_result["result"] = error_text
-                except Exception as e:
-                    print(f"[EXCEPTION] Error in task: '{task_name}' → {e}")
-                    response_result["status"] = "EXCEPTION"
-                    response_result["status_code"] = 500
-                    response_result["task_name"] = task_name
-                    response_result["result"] = str(e)
+        payload = None
+        is_file = False
+        file_path = None
+        filename = None
+
+        if match:
+            tag = match.group(1)
+            content = match.group(2)
+
+            if tag == "TEXT":
+                payload = content
+
+            elif tag == "FILE":
+                filename = content
+                file_path = os.path.join("Files", filename)
+
+                if not os.path.exists(file_path):
+                    response_result.update({
+                        "status": "ERROR",
+                        "status_code": 404,
+                        "result": f"File '{filename}' non trovato"
+                    })
+                    return response_result
+
+                is_file = True
+        else:
+            payload = input_data
+
+        try:
+            request_kwargs = {"timeout": 5}
+
+            if is_file:
+                form = aiohttp.FormData()
+                form.add_field(
+                    name="file",
+                    value=open(file_path, "rb"),
+                    filename=filename,
+                    content_type="application/octet-stream"
+                )
+                request_kwargs["data"] = form
+            else:
+                request_kwargs["json"] = payload
+
+            match operation:
+                case "POST":
+                    resp_ctx = session.post(endpoint, **request_kwargs)
+                case "PUT":
+                    resp_ctx = session.put(endpoint, **request_kwargs)
+                case "GET":
+                    resp_ctx = session.get(endpoint, timeout=5)
+                case "DELETE":
+                    resp_ctx = session.delete(endpoint, timeout=5)
+                case _:
+                    raise ValueError(f"Operazione HTTP non supportata: {operation}")
+
+            async with resp_ctx as resp:
+                status = resp.status
+                content_type = resp.headers.get("Content-Type", "")
+
+                if 200 <= status < 300:
+                    if "application/json" in content_type:
+                        result = await resp.json()
+                    else:
+                        result = await resp.text()
+
+                    print(f"[SUCCESS] Task '{task_name}' completed")
+                    response_result.update({
+                        "status": "SUCCESS",
+                        "status_code": status,
+                        "result": result
+                    })
+                else:
+                    error_text = await resp.text()
+                    print(f"[ERROR] Task '{task_name}' failed: {error_text}")
+                    response_result.update({
+                        "status": "ERROR",
+                        "status_code": status,
+                        "result": error_text
+                    })
+
+        except Exception as e:
+            print(f"[EXCEPTION] Task '{task_name}' → {e}")
+            response_result.update({
+                "status": "EXCEPTION",
+                "status_code": 500,
+                "result": str(e)
+            })
 
         return response_result
 
-        
     async def trigger_agents_async(self, agents: dict, discovered_services):
         tasks = agents.get("tasks", [])
         async with aiohttp.ClientSession() as session:
@@ -287,21 +289,6 @@ class Controller:
     def trigger_agents(self, agents: dict, discovered_services):
         results = asyncio.run(self.trigger_agents_async(agents, discovered_services))
         return results
-
-
-    def replace_endpoints(self, endpoints_list, mock_server_address):
-        updated = []
-        for endpoint_dict in endpoints_list:
-            new_dict = {}
-            for k, v in endpoint_dict.items():
-                if isinstance(v, str):
-                    new_url = re.sub(r"http://localhost:8585", mock_server_address, v)
-                    new_dict[k] = new_url
-                else:
-                    new_dict[k] = v
-            updated.append(new_dict)
-        return updated
-
 
     def control(self, query, files=None):
         input_files = files or []
@@ -372,6 +359,17 @@ class Controller:
         plan = self.extract_agents(plan_json)
 
         results = self.trigger_agents(plan, discovered_services)
+
+        for filename in os.listdir('Files'):
+            file_path = os.path.join('Files', filename)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                print('Failed to delete %s. Reason: %s' % (file_path, e))
+
         return {
             "execution_plan": plan,
             "execution_results": results

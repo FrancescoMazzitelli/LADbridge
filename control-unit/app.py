@@ -2,6 +2,7 @@ from flask import Flask
 from extras.flask_restx import Api
 from controller import controlUnitController
 from cheroot.wsgi import Server
+import os
 
 app = Flask(__name__)
 app.config['BUNDLE_ERRORS'] = True
