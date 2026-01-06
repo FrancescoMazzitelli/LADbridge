@@ -45,7 +45,6 @@ class Controller:
 
         return analyzed
 
-
      
     def query_ollama(self, prompt: str) -> str:
         url = os.environ.get("OLLAMA_API_URL", "http://localhost:11434")
@@ -175,7 +174,9 @@ class Controller:
         return plan
 
 
+    # ========== Async version maintained for future works ==========
     async def call_agent(self, session, task, discovered_services):
+        """Versione asincrona - mantenuta per compatibilità"""
         task_name = task.get("task_name")
         endpoint = task.get("endpoint")
         input_data = task.get("input", "")
@@ -280,15 +281,138 @@ class Controller:
         return response_result
 
     async def trigger_agents_async(self, agents: dict, discovered_services):
+        """Versione asincrona - mantenuta per compatibilità"""
         tasks = agents.get("tasks", [])
         async with aiohttp.ClientSession() as session:
             futures = [asyncio.create_task(self.call_agent(session, task, discovered_services)) for task in tasks]
             results = await asyncio.gather(*futures)
         return results
+    
+    # ===============================================================
+
+    def call_agent_sync(self, task, discovered_services):
+        """Versione sincrona - esegue una singola task"""
+        task_name = task.get("task_name")
+        endpoint = task.get("endpoint")
+        input_data = task.get("input", "")
+        operation = task.get("operation", "").upper()
+
+        response_result = {
+            "task_name": task_name,
+            "operation": operation
+        }
+
+        tag_pattern = r"\[(\w+)\](.*?)\[/\1\]"
+        match = re.search(tag_pattern, input_data, re.DOTALL)
+
+        payload = None
+        is_file = False
+        file_path = None
+        filename = None
+
+        if match:
+            tag = match.group(1)
+            content = match.group(2)
+
+            if tag == "TEXT":
+                payload = content
+
+            elif tag == "FILE":
+                filename = content
+                file_path = os.path.join("Files", filename)
+
+                if not os.path.exists(file_path):
+                    response_result.update({
+                        "status": "ERROR",
+                        "status_code": 404,
+                        "result": f"File '{filename}' non trovato"
+                    })
+                    return response_result
+
+                is_file = True
+        else:
+            payload = input_data
+
+        try:
+            if is_file:
+                # Upload file
+                with open(file_path, "rb") as file:
+                    files = {"file": (filename, file, "application/octet-stream")}
+                    match operation:
+                        case "POST":
+                            resp = requests.post(endpoint, files=files, timeout=30)
+                        case "PUT":
+                            resp = requests.put(endpoint, files=files, timeout=30)
+                        case _:
+                            raise ValueError(f"Operazione HTTP non supportata per file: {operation}")
+            else:
+                # Wrappa il payload in {"input": ...} se è una stringa
+                if isinstance(payload, str):
+                    json_payload = {"input": payload}
+                else:
+                    json_payload = payload
+
+                match operation:
+                    case "POST":
+                        resp = requests.post(endpoint, json=json_payload, timeout=30)
+                    case "PUT":
+                        resp = requests.put(endpoint, json=json_payload, timeout=30)
+                    case "GET":
+                        resp = requests.get(endpoint, timeout=30)
+                    case "DELETE":
+                        resp = requests.delete(endpoint, timeout=30)
+                    case _:
+                        raise ValueError(f"Operazione HTTP non supportata: {operation}")
+
+            status = resp.status_code
+            content_type = resp.headers.get("Content-Type", "")
+
+            if 200 <= status < 300:
+                if "application/json" in content_type:
+                    try:
+                        result = resp.json()
+                    except:
+                        result = resp.text()
+                else:
+                    result = resp.text()
+
+                print(f"[SUCCESS] Task '{task_name}' completed")
+                response_result.update({
+                    "status": "SUCCESS",
+                    "status_code": status,
+                    "result": result
+                })
+            else:
+                error_text = resp.text()
+                print(f"[ERROR] Task '{task_name}' failed: {error_text}")
+                response_result.update({
+                    "status": "ERROR",
+                    "status_code": status,
+                    "result": error_text
+                })
+
+        except Exception as e:
+            print(f"[EXCEPTION] Task '{task_name}' → {e}")
+            response_result.update({
+                "status": "EXCEPTION",
+                "status_code": 500,
+                "result": str(e)
+            })
+
+        return response_result
+
+    def trigger_agents_sync(self, agents: dict, discovered_services):
+        """Versione sincrona - esegue tutte le tasks in sequenza"""
+        tasks = agents.get("tasks", [])
+        results = []
+        for task in tasks:
+            result = self.call_agent_sync(task, discovered_services)
+            results.append(result)
+        return results
 
     def trigger_agents(self, agents: dict, discovered_services):
-        results = asyncio.run(self.trigger_agents_async(agents, discovered_services))
-        return results
+        """Wrapper - usa la versione sincrona"""
+        return self.trigger_agents_sync(agents, discovered_services)
 
     def control(self, query, files=None):
         input_files = files or []
@@ -342,7 +466,6 @@ class Controller:
             if isinstance(service.get("endpoints"), dict):
                 service["endpoints"].pop(register_key, None)
 
-
             print(service)
             print("="*100)
 
@@ -355,7 +478,13 @@ class Controller:
             discovered_capabilities.append(service.get("capabilities", {}))
             discovered_endpoints.append(service.get("endpoints", {}))
         
-        plan_json = self.decompose_task(discovered_services, discovered_capabilities, discovered_endpoints, analyzed_files, query)
+        plan_json = self.decompose_task(
+            discovered_services=discovered_services,
+            discovered_capabilities=discovered_capabilities,
+            discovered_endpoints=discovered_endpoints,
+            query=query,
+            input_files=analyzed_files
+        )
         plan = self.extract_agents(plan_json)
 
         results = self.trigger_agents(plan, discovered_services)

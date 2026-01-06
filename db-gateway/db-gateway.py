@@ -5,6 +5,7 @@ from qdrant_client.models import VectorParams, Distance, PointStruct
 from bson import ObjectId
 from bson.json_util import dumps
 from cheroot.wsgi import Server as WSGIServer
+from sentence_transformers import SentenceTransformer, CrossEncoder
 import multiprocessing
 import uuid
 import os
@@ -12,8 +13,7 @@ import sys
 import logging
 import bson
 import json
-
-from sentence_transformers import SentenceTransformer, CrossEncoder
+import time
 
 log_file_path = "test.txt"
 logging.basicConfig(
@@ -36,23 +36,70 @@ MONGO_PORT = os.environ.get("MONGO_PORT", "27017")
 MONGO_DB = os.environ.get("MONGO_DB", "microcks")
 MONGO_URI = f"mongodb://{MONGO_USER}:{MONGO_PASS}@{MONGO_HOST}:{MONGO_PORT}/"
 
-
 QDRANT_HOST = os.environ.get("QDRANT_HOST", "catalog-vector")
 QDRANT_PORT = os.environ.get("QDRANT_PORT", "6333")
 QDRANT_COLLECTION = os.environ.get("QDRANT_COLLECTION", "services")
 QDRANT_URI = f"http://{QDRANT_HOST}:{QDRANT_PORT}"
 
-
-mongo_client = MongoClient(MONGO_URI)
-qdrant_client = QdrantClient(QDRANT_URI)
-
-db = mongo_client[MONGO_DB]
-collection = db["services"]
+# Connessioni inizializzate come None
+mongo_client = None
+qdrant_client = None
+db = None
+collection = None
 
 is_server_ready = False
 embedding_model = None
 reranker_model = None
 tokenizer = None
+
+def connect_with_retry(max_retries=5, initial_delay=2):
+    """Connetti a MongoDB e Qdrant con retry"""
+    global mongo_client, qdrant_client, db, collection
+    
+    for attempt in range(max_retries):
+        try:
+            logger.info(f"Connecting to MongoDB ({attempt + 1}/{max_retries})...")
+            mongo_client = MongoClient(
+                MONGO_URI,
+                serverSelectionTimeoutMS=10000,
+                connectTimeoutMS=10000,
+                socketTimeoutMS=10000,
+                retryWrites=False
+            )
+            mongo_client.admin.command('ping')
+            db = mongo_client[MONGO_DB]
+            collection = db["services"]
+            logger.info("✅ MongoDB connected")
+            break
+        except Exception as e:
+            logger.warning(f"MongoDB connection failed: {e}")
+            if attempt < max_retries - 1:
+                wait_time = initial_delay * (2 ** attempt)
+                logger.info(f"Retrying in {wait_time}s...")
+                time.sleep(wait_time)
+            else:
+                logger.error("Failed to connect to MongoDB after all retries")
+                raise
+
+    for attempt in range(max_retries):
+        try:
+            logger.info(f"Connecting to Qdrant ({attempt + 1}/{max_retries})...")
+            qdrant_client = QdrantClient(
+                QDRANT_URI,
+                timeout=30
+            )
+            qdrant_client.get_collections()
+            logger.info("✅ Qdrant connected")
+            break
+        except Exception as e:
+            logger.warning(f"Qdrant connection failed: {e}")
+            if attempt < max_retries - 1:
+                wait_time = initial_delay * (2 ** attempt)
+                logger.info(f"Retrying in {wait_time}s...")
+                time.sleep(wait_time)
+            else:
+                logger.error("Failed to connect to Qdrant after all retries")
+                raise
 
 def load_model():
     global embedding_model
@@ -78,14 +125,13 @@ def clean_doc(doc):
     return doc
 
 def embed(input):
-        embedding = embedding_model.encode(f"query: {input}", convert_to_tensor=False, normalize_embeddings=True)
-        return embedding.tolist()
+    embedding = embedding_model.encode(f"query: {input}", convert_to_tensor=False, normalize_embeddings=True)
+    return embedding.tolist()
 
 def count_tokens(text):
     tokens = tokenizer.encode(text, add_special_tokens=True)
     return len(tokens)
 
-# ------------------------------------------------------------------------------| parallel
 def init_model():
     global model
     model = SentenceTransformer('Qwen/Qwen3-Embedding-0.6B', device='cpu')
@@ -99,7 +145,7 @@ def embed_item(args):
         vector=vector.tolist(),
         payload={"mongo_id": doc_id, "http_operation": key}
     )
-# ------------------------------------------------------------------------------| parallel
+
 def create_vector_collection():
     collection_name = QDRANT_COLLECTION
     existing_collections = qdrant_client.get_collections().collections
@@ -119,8 +165,6 @@ def index():
     else:
         logger.error(f"Model not yet loaded or broken")
         return jsonify({"status": "error", "message": "Model not yet loaded or broken", "model_loaded": False}), 500
-        
-
 
 @app.route("/index/search", methods=["POST"])
 def vector_search():
@@ -166,7 +210,6 @@ def vector_search():
             }
 
             rerank_texts.append(capability)
-
             services.append(service)
         except Exception as e:
             logger.error(f"Error processing doc_id: {doc_id}, operation: {http_operation} - {str(e)}")
@@ -192,7 +235,6 @@ def vector_search():
             break
             
     return jsonify({"results": top_results}), 200
-
 
 @app.route("/service", methods=["POST"])
 def create_or_update_service_old():
@@ -226,7 +268,6 @@ def create_or_update_service_old():
     collection.replace_one({"_id": doc_id}, data, upsert=True)
     return jsonify({"status": "ok", "id": doc_id}), 200
 
-# ------------------------------------------------------------------------------| parallel
 @app.route("/service/old", methods=["POST"])
 def create_or_update_service():
     data = request.get_json()
@@ -254,7 +295,6 @@ def create_or_update_service():
 
     collection.replace_one({"_id": doc_id}, data, upsert=True)
     return jsonify({"status": "ok", "id": doc_id}), 200
-# ------------------------------------------------------------------------------| parallel
 
 @app.route("/services", methods=["GET"])
 def list_services():
@@ -278,10 +318,15 @@ def delete_service(service_id):
 if __name__ == "__main__":
     try:
         with app.app_context():
+            logger.info("🔗 Connecting to databases...")
+            connect_with_retry(max_retries=5, initial_delay=2)
+            
             logger.info("🛠️ Creating Qdrant collection...")
             create_vector_collection()
+            
             logger.info("📦 Loading embedding model...")
             load_model()
+            
             is_server_ready = True
             logger.info("✅ Server is ready.")
     except Exception as e:
@@ -295,4 +340,3 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("🛑 Shutting down server...")
         server.stop()
-

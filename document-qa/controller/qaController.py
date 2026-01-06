@@ -6,6 +6,7 @@ from service.qaService import Qa
 from service.knowledgeBase import MyKnowledgeBase as kb
 import os
 import json
+import time
 
 api = Namespace(
     "qa",
@@ -50,9 +51,17 @@ class ConversationalAgent(Resource):
     """)
     def post(self):
         data = request.get_json(force=True)
-        user_input = data['input']
+
+        if isinstance(data, str):
+            user_input = {"input": data}
+        else:
+            user_input = data.get('input', data)
+        
+        if not user_input:
+            return {"error": "Missing input"}, 400
+        
         results = qa.invoke(user_input)
-        return jsonify(results)
+        return jsonify({"response": results})
 
 @api.route("/upload")
 class DocumentUploader(Resource):
@@ -69,8 +78,14 @@ class DocumentUploader(Resource):
         os.makedirs("Documents", exist_ok=True)
         save_path = os.path.join("Documents", uploaded_file.filename)
         uploaded_file.save(save_path)
-        qa.update_kb()
-        return {"message": f"Document saved to {save_path}"}, 200
+        flag = qa.update_kb()
+
+        time.sleep(10)
+        
+        if flag is True:
+            return {"message": f"Document saved to {save_path}"}, 200
+        else:
+            return {"message": f"Document not processed"}, 500
 
 @api.route("/register")
 class Registration(Resource):

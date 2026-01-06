@@ -246,28 +246,29 @@ class MyKnowledgeBase:
         if not loaded_pdfs:
             print("[INFO] No documents found. Skipping ingestion pipeline.")
             self.retriever = None
-            return
+            return False
 
         chunked_documents = self.split_documents(paths=loaded_pdfs)
         if not chunked_documents:
             print("[INFO] No blocks extracted. Skipping ingestion pipeline.")
             self.retriever = None
-            return
+            return False
 
         dfs = self.convert_docs_in_dataframe(chunked_documents)
         if not dfs:
             print("[INFO] No dataframes extracted. Skipping ingestion pipeline.")
             self.retriever = None
-            return
+            return False
 
         splitted_paragraphs = self.analyze_dataframes(dfs)
         if not splitted_paragraphs:
             print("[INFO] No paragraphs extracted. Skipping ingestion pipeline.")
             self.retriever = None
-            return
+            return False
 
         self.convert_document_to_embeddings(splitted_paragraphs)
 
         print("==> PDF loading and chunking done.")
         print("==> Vector db initialised and created.")
         print("==> All done")
+        return True

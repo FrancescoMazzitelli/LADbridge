@@ -10,10 +10,10 @@ class Qa:
     def __init__(self):
         self.model_name = "phi4-reasoning:14b"
         self.kb = kb.MyKnowledgeBase(DOCUMENT_SOURCE_DIRECTORY)
-        self.kb.initiate_document_injetion_pipeline()
     
     def update_kb(self):
-        self.kb.initiate_document_injetion_pipeline()
+        flag = self.kb.initiate_document_injetion_pipeline()
+        return flag 
 
     def query_ollama(self, prompt: str) -> str:
         url = os.environ.get("OLLAMA_API_URL", "http://localhost:11434")
@@ -42,6 +42,8 @@ class Qa:
         
     def query(self, query):
 
+        if self.kb.retriever is None:
+            return "Nessun documento disponibile nella knowledge base."
         context = self.kb.retriever.invoke(query)
 
         prompt = f"""
@@ -70,11 +72,18 @@ class Qa:
         return response
     
     def clean_response(self, response):
-        parsed = re.match(r'<\/think>\s*(.*)', response, flags=re.IGNORECASE)
-        cleaned = parsed.group(1)
-        return cleaned
+        if not response:
+            return ""
+        
+        think_match = re.search(r'</think>\s*(.*)', response, flags=re.IGNORECASE | re.DOTALL)
+    
+        if think_match:
+            cleaned = think_match.group(1).strip()
+            return cleaned if cleaned else response.strip()
+        
+        return response.strip()
     
     def invoke(self, query):
         response = self.query(query)
-        cleaned_response = cleaned_response(response)
+        cleaned_response = self.clean_response(response)
         return cleaned_response
