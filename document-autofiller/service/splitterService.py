@@ -197,7 +197,7 @@ class SplitterService:
         return all_fields
 
 
-    def split(self, path):
+    def split_document(self, path):
         doc = fitz.open(path)
         
         widgets = []

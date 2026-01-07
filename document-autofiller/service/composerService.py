@@ -9,7 +9,6 @@ class ComposerService:
         Extract all values enclosed in <FIELD>...</FIELD> tags
         and return them in a list in the order they appear.
         """
-        
         pattern = re.compile(r"<\/think><FIELD>\s*([^<]*)\s*<\/FIELD>", re.IGNORECASE)
         print(f"Analyzing chunk for fields:\n{fields}\n")
         
@@ -19,16 +18,16 @@ class ComposerService:
         
         for match in pattern.finditer(fields):
             if match is None:
-                print("⚠️ No matches found in the response, inserting placeholder '--'.")
-                return ["--"]
+                continue
+            
             value = match.group(1)
-            if value is not None or value != "":
-                print(f"📋 Extracted {len(value)} values from tags <FIELD>.")
+            
+            if value is not None and value.strip() != "":
+                print(f"📋 Extracted value: '{value.strip()}'")
                 return [value.strip()]
-            else:
-                print("⚠️ No valid <FIELD> value found, inserting placeholder '--'.")
-                return ["--"]
-
+        
+        print("⚠️ No valid <FIELD> value found, inserting placeholder '--'.")
+        return ["--"]
 
     def fill_pdf_form(self, template_path, output_path, ordered_values):
         """
@@ -36,13 +35,14 @@ class ComposerService:
         """
         doc = fitz.open(template_path)
         i = 0
-
+        
         for page_num, page in enumerate(doc, start=1):
             widget = page.first_widget
+            
             while widget:
                 current_value = widget.field_value if hasattr(widget, "field_value") else None
                 field_name = widget.field_name or f"Field_{i+1}"
-
+                
                 if current_value and str(current_value).strip():
                     print(f"🟡 Field '{field_name}' already compiled with '{current_value}' → skip")
                 else:
@@ -54,12 +54,13 @@ class ComposerService:
                         i += 1
                     else:
                         print(f"⚠️ No value provided for '{field_name}', leaving it empty.")
+                
                 widget = widget.next
-
+        
         with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
             temp_path = tmp.name
+        
         doc.save(temp_path)
         doc.close()
-
         shutil.move(temp_path, output_path)
         print(f"✅ Compiled pdf saved as: {output_path}")

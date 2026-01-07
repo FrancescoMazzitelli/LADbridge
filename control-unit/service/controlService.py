@@ -1,4 +1,5 @@
 from service.discoveryService import Discovery
+from flask import Response
 import json
 import requests
 import re
@@ -340,9 +341,9 @@ class Controller:
                     files = {"file": (filename, file, "application/octet-stream")}
                     match operation:
                         case "POST":
-                            resp = requests.post(endpoint, files=files, timeout=30)
+                            resp = requests.post(endpoint, files=files, timeout=600)
                         case "PUT":
-                            resp = requests.put(endpoint, files=files, timeout=30)
+                            resp = requests.put(endpoint, files=files, timeout=600)
                         case _:
                             raise ValueError(f"Operazione HTTP non supportata per file: {operation}")
             else:
@@ -354,13 +355,13 @@ class Controller:
 
                 match operation:
                     case "POST":
-                        resp = requests.post(endpoint, json=json_payload, timeout=30)
+                        resp = requests.post(endpoint, json=json_payload, timeout=600)
                     case "PUT":
-                        resp = requests.put(endpoint, json=json_payload, timeout=30)
+                        resp = requests.put(endpoint, json=json_payload, timeout=600)
                     case "GET":
-                        resp = requests.get(endpoint, timeout=30)
+                        resp = requests.get(endpoint, timeout=600)
                     case "DELETE":
-                        resp = requests.delete(endpoint, timeout=30)
+                        resp = requests.delete(endpoint, timeout=600)
                     case _:
                         raise ValueError(f"Operazione HTTP non supportata: {operation}")
 
@@ -368,6 +369,23 @@ class Controller:
             content_type = resp.headers.get("Content-Type", "")
 
             if 200 <= status < 300:
+
+                # ===== FILE =====
+                if content_type.startswith("application/pdf"):
+                    return {
+                        "status": "FILE",
+                        "status_code": status,
+                        "headers": {
+                            "Content-Type": content_type,
+                            "Content-Disposition": resp.headers.get(
+                                "Content-Disposition",
+                                'attachment; filename="output.pdf"'
+                            )
+                        },
+                        "body": resp.content
+                    }
+
+                # ===== JSON =====
                 if "application/json" in content_type:
                     try:
                         result = resp.json()
@@ -382,6 +400,7 @@ class Controller:
                     "status_code": status,
                     "result": result
                 })
+
             else:
                 error_text = resp.text()
                 print(f"[ERROR] Task '{task_name}' failed: {error_text}")
@@ -400,15 +419,21 @@ class Controller:
             })
 
         return response_result
-
+    
     def trigger_agents_sync(self, agents: dict, discovered_services):
-        """Versione sincrona - esegue tutte le tasks in sequenza"""
         tasks = agents.get("tasks", [])
         results = []
+
         for task in tasks:
             result = self.call_agent_sync(task, discovered_services)
+
+            if isinstance(result, dict) and result.get("status") == "FILE":
+                return result
+
             results.append(result)
+
         return results
+
 
     def trigger_agents(self, agents: dict, discovered_services):
         """Wrapper - usa la versione sincrona"""
@@ -488,6 +513,12 @@ class Controller:
         plan = self.extract_agents(plan_json)
 
         results = self.trigger_agents(plan, discovered_services)
+        if isinstance(results, dict) and results.get("status") == "FILE":
+            return Response(
+                results["body"],
+                status=results["status_code"],
+                headers=results["headers"]
+            )
 
         for filename in os.listdir('Files'):
             file_path = os.path.join('Files', filename)

@@ -97,69 +97,75 @@ class Fill(Resource):
         if not datadoc or not tofilldoc:
             return {"error": "Both datadoc and tofilldoc must be uploaded first."}, 400
 
-        splitter = SplitterService()
-        composer = ComposerService()
-        filleddoc = f"{tofilldoc}_FILLED.pdf"
-        iter_counter = 0
+        try:
+            splitter = SplitterService()
+            composer = ComposerService()
+            filleddoc = f"{tofilldoc}_FILLED.pdf"
+            iter_counter = 0
 
-        data_df = pd.read_csv(datadoc)
-        information = data_df.to_string()
+            data_df = pd.read_csv(datadoc)
+            information = data_df.to_string()
 
-        tofilldoc, fields = splitter.split(tofilldoc)
-        populated_chunks = []
+            processed_doc, fields = splitter.split_document(tofilldoc)
+            populated_chunks = []
 
-        for field in fields:
-            prompt = f"""
-            <|system|>
-            You are an AI agent that returns exactly one value to fill a document field.
+            for field in fields:
+                prompt = f"""
+                <|system|>
+                You are an AI agent that returns exactly one value to fill a document field.
 
-            RULES:
-            - You MUST output exactly and only one <FIELD>...</FIELD> tag.
-            - NO text before the tag, NO text after the tag, NO blank lines.
-            - NO reasoning, NO explanations, NO comments.
-            - Use ONLY the information inside "INFORMATION". 
-            - Do NOT invent or infer new data.
-            - If no suitable value exists, output exactly: <FIELD>--</FIELD>
-            - Never output more than ONE <FIELD>...</FIELD> tag.
+                RULES:
+                - You MUST output exactly and only one <FIELD>...</FIELD> tag.
+                - NO text before the tag, NO text after the tag, NO blank lines.
+                - NO reasoning, NO explanations, NO comments.
+                - Use ONLY the information inside "INFORMATION". 
+                - Do NOT invent or infer new data.
+                - If no suitable value exists, output exactly: <FIELD>--</FIELD>
+                - Never output more than ONE <FIELD>...</FIELD> tag.
 
-            Your entire reply must match this regex pattern exactly:
-            <FIELD>\s*([^<]*)\s*<\/FIELD>
-            If your reply does not match this format, it will be rejected.
-            <|end|>
+                Your entire reply must match this regex pattern exactly:
+                <FIELD>\\s*([^<]*)\\s*<\/FIELD>
+                If your reply does not match this format, it will be rejected.
+                <|end|>
 
-            <|user|>
-            Using this INFORMATION:
-            {information}
+                <|user|>
+                Using this INFORMATION:
+                {information}
 
-            Return the best value for the document field below.
-            FIELD NAME: {field['field_name']}
-            FIELD NEARBY TEXT: {field['label_text']}
-            <|end|>
-            <|assistant|>
-            """
+                Return the best value for the document field below.
+                FIELD NAME: {field['field_name']}
+                FIELD NEARBY TEXT: {field['label_text']}
+                <|end|>
+                <|assistant|>
+                """
 
-            response = query_ollama(prompt)
-            print(response)
+                ollama_response = query_ollama(prompt)
+                print(ollama_response)
 
-            ordered_values = composer.extract_filled_field(response)
-            if ordered_values is None or len(ordered_values) == 0:
-                ordered_values = ["--"]
+                ordered_values = composer.extract_filled_field(ollama_response)
+                if ordered_values is None or len(ordered_values) == 0:
+                    ordered_values = ["--"]
 
-            if iter_counter == 0:
-                composer.fill_pdf_form(tofilldoc, filleddoc, ordered_values)
-            else:
-                composer.fill_pdf_form(filleddoc, filleddoc, ordered_values)
+                if iter_counter == 0:
+                    composer.fill_pdf_form(processed_doc, filleddoc, ordered_values)
+                else:
+                    composer.fill_pdf_form(filleddoc, filleddoc, ordered_values)
 
-            iter_counter += 1
-            populated_chunks.append(response)
+                iter_counter += 1
+                populated_chunks.append(ollama_response)
 
-        response = send_file(
-            filleddoc,
-            as_attachment=True,
-            download_name=os.path.basename(filleddoc),
-            mimetype="application/pdf"
-        )
-        if response:
+            file_response = send_file(
+                filleddoc,
+                as_attachment=True,
+                download_name=os.path.basename(filleddoc),
+                mimetype="application/pdf"
+            )
+            return file_response
+
+        except Exception as e:
+            print(f"❌ Error during fill operation: {str(e)}")
+            return {"error": f"Fill operation failed: {str(e)}"}, 500
+        finally:
             try:
                 uploads_dir = "uploads"
                 if os.path.exists(uploads_dir):
@@ -167,8 +173,6 @@ class Fill(Resource):
                     print("🧹 Directory 'uploads/' cleaned.")
             except Exception as e:
                 print(f"⚠️ Errors during 'uploads/' directory cleaning: {e}")
-
-        return response
     
 
 @api.route("/register")
@@ -267,12 +271,13 @@ def query_ollama(prompt):
                     "num_ctx": 8192,
                 },
                 "stream": False
-            }
+            },
+            timeout=600
         )
         response.raise_for_status()
         data = response.json()
         return data.get("response", "").strip()
     except requests.exceptions.RequestException as e:
-        raise RuntimeError(f"[HTTP ERROR] Errore nella richiesta a Ollama: {e}")
+        raise RuntimeError(f"[HTTP ERROR] Error in the Ollama request: {e}")
     except ValueError:
-        raise RuntimeError(f"[PARSE ERROR] Risposta non JSON valida da Ollama: {response.text}")
+        raise RuntimeError(f"[PARSE ERROR] Not valid JSON response from Ollama: {response.text}")
