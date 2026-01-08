@@ -47,34 +47,40 @@ class ConversationalAgent(Resource):
             'attachment; filename="output.pdf"'
         )
 
+        execution_results_sanitized = self.sanitize_execution_results(controller.execution_results)
+
         execution_metadata = {
-            "execution_plan": getattr(controller, "last_execution_plan", None),
-            "execution_results": getattr(controller, "last_execution_results", None),
+            "execution_plan": getattr(controller, "execution_plan", None),
+            "execution_results": execution_results_sanitized,
             "note": "PDF generated successfully"
         }
 
-        boundary = f"BOUNDARY_{uuid.uuid4().hex}"
-
-        json_part = (
-            f"--{boundary}\r\n"
-            "Content-Type: application/json\r\n\r\n"
-            f"{json.dumps(execution_metadata)}\r\n"
-        ).encode("utf-8")
-
-        file_part = (
-            f"--{boundary}\r\n"
-            "Content-Type: application/pdf\r\n"
-            f"Content-Disposition: {content_disposition}\r\n\r\n"
-        ).encode("utf-8") + pdf_bytes + b"\r\n"
-
-        closing = f"--{boundary}--".encode("utf-8")
-
-        body = json_part + file_part + closing
-
-        return Response(
-            body,
+        response = Response(
+            pdf_bytes,
             status=200,
-            headers={
-                "Content-Type": f"multipart/mixed; boundary={boundary}"
-            }
+            mimetype="application/pdf"
         )
+
+        response.headers["Content-Disposition"] = content_disposition
+        response.headers["X-Execution-Metadata"] = json.dumps(execution_metadata)
+
+        return response
+
+    def sanitize_execution_results(self, results):
+        if isinstance(results, list):
+            sanitized = []
+            for r in results:
+                if isinstance(r, dict):
+                    r_copy = r.copy()
+                    if r_copy.get("status") == "FILE" and "body" in r_copy:
+                        r_copy["body"] = f"<{len(r_copy['body'])} bytes>"
+                    sanitized.append(r_copy)
+                else:
+                    sanitized.append(r)
+            return sanitized
+        elif isinstance(results, dict):
+            r_copy = results.copy()
+            if r_copy.get("status") == "FILE" and "body" in r_copy:
+                r_copy["body"] = f"<{len(r_copy['body'])} bytes>"
+            return r_copy
+        return results

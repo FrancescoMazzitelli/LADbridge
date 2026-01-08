@@ -513,6 +513,10 @@ class Controller:
         plan = self.extract_agents(plan_json)
 
         results = self.trigger_agents(plan, discovered_services)
+
+        self.execution_plan = plan
+        self.execution_results = results
+
         if isinstance(results, dict) and results.get("status") == "FILE":
             return Response(
                 results["body"],
