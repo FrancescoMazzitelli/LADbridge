@@ -8,6 +8,7 @@ import asyncio
 import os
 import mimetypes
 import shutil
+import time
 
 class Controller:
 
@@ -50,23 +51,32 @@ class Controller:
     def query_ollama(self, prompt: str) -> str:
         url = os.environ.get("OLLAMA_API_URL", "http://localhost:11434")
         try:
+            start_time = time.perf_counter()
             response = requests.post(
-                f"{url}/api/generate",
+                f"{url}/v1/chat/completions",
                 json={
-                    "model": self.model_name,
-                    "prompt": prompt,
-                    "options": {
-                        "temperature": 0.0,
-                        "max_tokens": 4096,
-                        "num_ctx": 8192,
-                    },
-                    
-                    "stream": False
-                }
+                    "messages": [
+                        {
+                            "role": "system",
+                            "content": ""
+                        },
+                        {
+                            "role": "user",
+                            "content": prompt
+                        }
+                    ],
+                    "temperature": 0,
+                    "max_tokens": 4096
+                    }
             )
             response.raise_for_status()
+            end_time = time.perf_counter()
+
+            latency = end_time - start_time
             data = response.json()
-            return data.get("response", "").strip()
+            content = data["choices"][0]["message"]["content"]
+
+            return content.strip(), latency
 
         except requests.exceptions.RequestException as e:
             raise RuntimeError(f"[HTTP ERROR] Errore nella richiesta a Ollama: {e}")
@@ -147,10 +157,10 @@ class Controller:
             <|assistant|>
         """
 
-        response = self.query_ollama(prompt)
+        response, plan_latency = self.query_ollama(prompt)
         print(f"[LLM RESPONSE] {response}")
         print("="*100)
-        return response
+        return response, plan_latency
 
     def extract_agents(self, agents_json):
         plan = {}
@@ -341,9 +351,9 @@ class Controller:
                     files = {"file": (filename, file, "application/octet-stream")}
                     match operation:
                         case "POST":
-                            resp = requests.post(endpoint, files=files, timeout=600)
+                            resp = requests.post(endpoint, files=files, timeout=3600)
                         case "PUT":
-                            resp = requests.put(endpoint, files=files, timeout=600)
+                            resp = requests.put(endpoint, files=files, timeout=3600)
                         case _:
                             raise ValueError(f"Operazione HTTP non supportata per file: {operation}")
             else:
@@ -355,13 +365,13 @@ class Controller:
 
                 match operation:
                     case "POST":
-                        resp = requests.post(endpoint, json=json_payload, timeout=600)
+                        resp = requests.post(endpoint, json=json_payload, timeout=3600)
                     case "PUT":
-                        resp = requests.put(endpoint, json=json_payload, timeout=600)
+                        resp = requests.put(endpoint, json=json_payload, timeout=3600)
                     case "GET":
-                        resp = requests.get(endpoint, timeout=600)
+                        resp = requests.get(endpoint, timeout=3600)
                     case "DELETE":
-                        resp = requests.delete(endpoint, timeout=600)
+                        resp = requests.delete(endpoint, timeout=3600)
                     case _:
                         raise ValueError(f"Operazione HTTP non supportata: {operation}")
 
@@ -503,7 +513,7 @@ class Controller:
             discovered_capabilities.append(service.get("capabilities", {}))
             discovered_endpoints.append(service.get("endpoints", {}))
         
-        plan_json = self.decompose_task(
+        plan_json, plan_latency = self.decompose_task(
             discovered_services=discovered_services,
             discovered_capabilities=discovered_capabilities,
             discovered_endpoints=discovered_endpoints,
@@ -536,5 +546,6 @@ class Controller:
 
         return {
             "execution_plan": plan,
-            "execution_results": results
+            "execution_results": results,
+            "plan_generation_latency": plan_latency
         }

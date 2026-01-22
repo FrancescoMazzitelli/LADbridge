@@ -1,0 +1,2865 @@
+Execution results
+Timestamp: 2026-01-17T16:30:44.663077
+Total questions: 60
+
+================================================================================
+Question #1
+Question:
+Given this document, upload and parse it for answering the question: What is the primary objective of Retrieval Augmented Generation (RAG)?
+
+Plan generation latency (s): 204.20028746699973
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What is the primary objective of Retrieval Augmented Generation (RAG)?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  }
+]
+
+================================================================================
+Question #2
+Question:
+Given this document, upload and parse it for answering the question: What are the three main categories of RAG architectures discussed?
+
+Plan generation latency (s): 194.5613602780013
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "upload and parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What are the three main categories of RAG architectures discussed?[/TEXT]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "answer RAG question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer RAG question"
+  }
+]
+
+================================================================================
+Question #3
+Question:
+Given this document, upload and parse it for answering the question: What does the Retriever component do in a RAG system?
+
+Plan generation latency (s): 171.64424147300087
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Upload and parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What does the Retriever component do in a RAG system?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Answer question about Retriever component"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Answer question about Retriever component"
+  }
+]
+
+================================================================================
+Question #4
+Question:
+Given this document, upload and parse it for answering the question: How does the proposed paragraph-based strategy generate coherent chunks?
+
+Plan generation latency (s): 209.33909694000067
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload and parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]How does the proposed paragraph-based strategy generate coherent chunks?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  }
+]
+
+================================================================================
+Question #5
+Question:
+Given this document, upload and parse it for answering the question: What specific Python module was used for document content extraction?
+
+Plan generation latency (s): 145.3505536470002
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload and parse document"
+    },
+    {
+      "endpoint": "/api/qa/invoke",
+      "input": "[TEXT]What specific Python module was used for document content extraction?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "extract content for question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL '/api/qa/upload': No scheme supplied. Perhaps you meant https:///api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL '/api/qa/invoke': No scheme supplied. Perhaps you meant https:///api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "extract content for question"
+  }
+]
+
+================================================================================
+Question #6
+Question:
+Given this document, upload and parse it for answering the question: How is the font size threshold for a paragraph body determined?
+
+Plan generation latency (s): 192.21799388100044
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "/api/qa/invoke",
+      "input": "[TEXT]How is the font size threshold for a paragraph body determined?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "parse and answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL '/api/qa/upload': No scheme supplied. Perhaps you meant https:///api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL '/api/qa/invoke': No scheme supplied. Perhaps you meant https:///api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "parse and answer question"
+  }
+]
+
+================================================================================
+Question #7
+Question:
+Given this document, upload and parse it for answering the question: What defines a 'parent' chunk in the proposed strategy?
+
+Plan generation latency (s): 162.32831112699932
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What defines a 'parent' chunk in the proposed strategy?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "parse document for question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "parse document for question"
+  }
+]
+
+================================================================================
+Question #8
+Question:
+Given this document, upload and parse it for answering the question: What is the role of 'child' chunks in the retrieval process?
+
+Plan generation latency (s): 140.68318406500111
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload and parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What is the role of 'child' chunks in the retrieval process?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  }
+]
+
+================================================================================
+Question #9
+Question:
+Given this document, upload and parse it for answering the question: Which vector database was utilized for storing document embeddings?
+
+Plan generation latency (s): 222.7132063909994
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "http://question-answering:5600/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "Upload and parse document"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/invoke",
+      "input": "[TEXT]parsed document content[/TEXT]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "Answer vector database question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": {
+      "message": "Document saved to Documents/paper033.pdf"
+    },
+    "status": "SUCCESS",
+    "status_code": 200,
+    "task_name": "Upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Answer vector database question"
+  }
+]
+
+================================================================================
+Question #10
+Question:
+Given this document, upload and parse it for answering the question: What specific LLM was chosen for its ability to process large contexts and speak Italian?
+
+Plan generation latency (s): 326.0197045399982
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "http://question-answering:5600/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload and parse document"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/invoke",
+      "input": "[TEXT]What specific LLM was chosen for its ability to process large contexts and speak Italian?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": {
+      "message": "Document saved to Documents/paper033.pdf"
+    },
+    "status": "SUCCESS",
+    "status_code": 200,
+    "task_name": "upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  }
+]
+
+================================================================================
+Question #11
+Question:
+Given this document, upload and parse it for answering the question: Why was the 'intfloat/multilingual-e5-large-instruct' model employed?
+
+Plan generation latency (s): 135.5250094289986
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]Why was the 'intfloat/multilingual-e5-large-instruct' model employed?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "parse document for question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "parse document for question"
+  }
+]
+
+================================================================================
+Question #12
+Question:
+Given this document, upload and parse it for answering the question: What is the 'fixed-size strategy' for chunking?
+
+Plan generation latency (s): 154.76313099000254
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Upload and parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What is the 'fixed-size strategy' for chunking?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Answer question about chunking strategy"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Answer question about chunking strategy"
+  }
+]
+
+================================================================================
+Question #13
+Question:
+Given this document, upload and parse it for answering the question: How does the 'recursive strategy' function?
+
+Plan generation latency (s): 232.26130981299866
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]How does the 'recursive strategy' function?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question"
+    },
+    {
+      "endpoint": "GET /api/qa/health",
+      "input": "[NONE]",
+      "operation": "GET",
+      "service_id": "question-answering",
+      "task_name": "check service health"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  },
+  {
+    "operation": "GET",
+    "result": "Invalid URL 'GET /api/qa/health': No scheme supplied. Perhaps you meant https://GET /api/qa/health?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "check service health"
+  }
+]
+
+================================================================================
+Question #14
+Question:
+Given this document, upload and parse it for answering the question: What is the 'document specific strategy'?
+
+Plan generation latency (s): 168.61421318700013
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What is the 'document specific strategy'?[TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "parse and answer"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "parse and answer"
+  }
+]
+
+================================================================================
+Question #15
+Question:
+Given this document, upload and parse it for answering the question: What is a major drawback of the 'semantic strategy' according to the paper?
+
+Plan generation latency (s): 165.84386495099898
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload and parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What is a major drawback of the 'semantic strategy' according to the paper?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  }
+]
+
+================================================================================
+Question #16
+Question:
+Given this document, upload and parse it for answering the question: What does the 'lost in the middle' phenomenon refer to?
+
+Plan generation latency (s): 170.9081735849977
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "http://question-answering:5600/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/invoke",
+      "input": "[TEXT]What does the 'lost in the middle' phenomenon refer to?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "parse document for question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": {
+      "message": "Document saved to Documents/paper033.pdf"
+    },
+    "status": "SUCCESS",
+    "status_code": 200,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "parse document for question"
+  }
+]
+
+================================================================================
+Question #17
+Question:
+Given this document, upload and parse it for answering the question: How does the system handle data contained in images or tables?
+
+Plan generation latency (s): 172.99013719999857
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]How does the system handle data contained in images or tables?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  }
+]
+
+================================================================================
+Question #18
+Question:
+Given this document, upload and parse it for answering the question: What was the subject of the four documents used in the evaluation?
+
+Plan generation latency (s): 249.31336059100067
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "upload and parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What was the subject of the four documents used in the evaluation?[/TEXT]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  }
+]
+
+================================================================================
+Question #19
+Question:
+Given this document, upload and parse it for answering the question: How many experts participated in the empirical evaluation?
+
+Plan generation latency (s): 161.1914804909975
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "http://question-answering:5600/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "parse document"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/invoke",
+      "input": "[TEXT]How many experts participated in the empirical evaluation?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": {
+      "message": "Document saved to Documents/paper033.pdf"
+    },
+    "status": "SUCCESS",
+    "status_code": 200,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": {
+      "message": "Document saved to Documents/paper033.pdf"
+    },
+    "status": "SUCCESS",
+    "status_code": 200,
+    "task_name": "parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  }
+]
+
+================================================================================
+Question #20
+Question:
+Given this document, upload and parse it for answering the question: What percentage of appreciation did the paragraph-based strategy receive from experts?
+
+Plan generation latency (s): 168.14073530899987
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What percentage of appreciation did the paragraph-based strategy receive from experts?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  }
+]
+
+================================================================================
+Question #21
+Question:
+Given this document, upload and parse it for answering the question: What does BERTScore measure?
+
+Plan generation latency (s): 152.9091117129974
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What does BERTScore measure?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "parse document for question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "parse document for question"
+  }
+]
+
+================================================================================
+Question #22
+Question:
+Given this document, upload and parse it for answering the question: What is the purpose of the BLEU metric?
+
+Plan generation latency (s): 174.38589600100022
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What is the purpose of the BLEU metric?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "parse document for question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "parse document for question"
+  }
+]
+
+================================================================================
+Question #23
+Question:
+Given this document, upload and parse it for answering the question: How does METEOR improve upon the BLEU metric?
+
+Plan generation latency (s): 226.2738787390008
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]Files/paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload and parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]How does METEOR improve upon the BLEU metric?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question about METEOR and BLEU"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "File 'Files/paper033.pdf' non trovato",
+    "status": "ERROR",
+    "status_code": 404,
+    "task_name": "upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question about METEOR and BLEU"
+  }
+]
+
+================================================================================
+Question #24
+Question:
+Given this document, upload and parse it for answering the question: What does the ROUGE metric emphasize?
+
+Plan generation latency (s): 150.82368125499852
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload and parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What does the ROUGE metric emphasize?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer ROUGE metric question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer ROUGE metric question"
+  }
+]
+
+================================================================================
+Question #25
+Question:
+Given this document, upload and parse it for answering the question: Why was the recursive strategy excluded from the final evaluation?
+
+Plan generation latency (s): 199.38926674600225
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "http://question-answering:5600/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/invoke",
+      "input": "[TEXT]extracted text from paper033.pdf[/TEXT]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "extract text from PDF"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/invoke",
+      "input": "[TEXT]Why was the recursive strategy excluded from the final evaluation?[/TEXT]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": {
+      "message": "Document saved to Documents/paper033.pdf"
+    },
+    "status": "SUCCESS",
+    "status_code": 200,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "extract text from PDF"
+  },
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  }
+]
+
+================================================================================
+Question #26
+Question:
+Given this document, upload and parse it for answering the question: What hardware was used to load the pre-trained model for evaluation?
+
+Plan generation latency (s): 228.0950900099997
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "upload and parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What hardware was used to load the pre-trained model for evaluation?[/TEXT]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "invoke answer"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "invoke answer"
+  }
+]
+
+================================================================================
+Question #27
+Question:
+Given this document, upload and parse it for answering the question: What is the 'Generate-Read' variant of Modular RAG?
+
+Plan generation latency (s): 167.08906343800118
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "http://question-answering:5600/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "upload and parse document"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/invoke",
+      "input": "[TEXT]What is the 'Generate-Read' variant of Modular RAG?[/TEXT]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "answer question using parsed document"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": {
+      "message": "Document saved to Documents/paper033.pdf"
+    },
+    "status": "SUCCESS",
+    "status_code": 200,
+    "task_name": "upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question using parsed document"
+  }
+]
+
+================================================================================
+Question #28
+Question:
+Given this document, upload and parse it for answering the question: What is the 'Rewrite-Retrieve-Read' approach?
+
+Plan generation latency (s): 236.68759603200306
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload and parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What is the 'Rewrite-Retrieve-Read' approach?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  }
+]
+
+================================================================================
+Question #29
+Question:
+Given this document, upload and parse it for answering the question: How does the system identify a paragraph title?
+
+Plan generation latency (s): 161.43952756900035
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "http://question-answering:5600/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/invoke",
+      "input": "[TEXT]How does the system identify a paragraph title?[/TEXT]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": {
+      "message": "Document saved to Documents/paper033.pdf"
+    },
+    "status": "SUCCESS",
+    "status_code": 200,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  }
+]
+
+================================================================================
+Question #30
+Question:
+Given this document, upload and parse it for answering the question: What were the results for the fixed-size strategy in the expert interview?
+
+Plan generation latency (s): 217.43485525399956
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What were the results for the fixed-size strategy in the expert interview?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  }
+]
+
+================================================================================
+Question #31
+Question:
+Given this document, upload and parse it for answering the question: What problem does the Advanced RAG architecture specifically address compared to Naive RAG?
+
+Plan generation latency (s): 207.8543022269987
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "http://question-answering:5600/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Upload document"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/invoke",
+      "input": "[TEXT]What problem does the Advanced RAG architecture specifically address compared to Naive RAG?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Parse document"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/invoke",
+      "input": "[TEXT]What problem does the Advanced RAG architecture specifically address compared to Naive RAG?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": {
+      "message": "Document saved to Documents/paper033.pdf"
+    },
+    "status": "SUCCESS",
+    "status_code": 200,
+    "task_name": "Upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Answer question"
+  }
+]
+
+================================================================================
+Question #32
+Question:
+Given this document, upload and parse it for answering the question: How does the paper define 'coarse-grained' retrieval?
+
+Plan generation latency (s): 161.04532134399778
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]How does the paper define 'coarse-grained' retrieval?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "parse document for question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "parse document for question"
+  }
+]
+
+================================================================================
+Question #33
+Question:
+Given this document, upload and parse it for answering the question: What is the statistical significance of using the 'mode' for font size?
+
+Plan generation latency (s): 150.84199556900057
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Upload and parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What is the statistical significance of using the 'mode' for font size?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Answer question based on parsed document"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Answer question based on parsed document"
+  }
+]
+
+================================================================================
+Question #34
+Question:
+What is a 'Modular RAG' architecture?
+
+Plan generation latency (s): 213.46899230100098
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "http://question-answering:5600/api/qa/upload",
+      "input": "[TEXT]What is a 'Modular RAG' architecture?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Understand Modular RAG architecture"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/invoke",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Retrieve detailed explanation"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Understand Modular RAG architecture"
+  },
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Retrieve detailed explanation"
+  }
+]
+
+================================================================================
+Question #35
+Question:
+Given this document, upload and parse it for answering the question: How does the paragraph-based strategy improve the 'cohesion' of chunks?
+
+Plan generation latency (s): 184.0062383830009
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Upload document"
+    },
+    {
+      "endpoint": "/api/qa/invoke",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Parse and analyze document for question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL '/api/qa/upload': No scheme supplied. Perhaps you meant https:///api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL '/api/qa/invoke': No scheme supplied. Perhaps you meant https:///api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Parse and analyze document for question"
+  }
+]
+
+================================================================================
+Question #36
+Question:
+Given this document, upload and parse it for answering the question: What role does the 'bounding box' metadata play in text extraction?
+
+Plan generation latency (s): 156.36223952300134
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "/api/qa/invoke",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "GET",
+      "service_id": "question-answering",
+      "task_name": "parse document"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL '/api/qa/upload': No scheme supplied. Perhaps you meant https:///api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "GET",
+    "result": "Operazione HTTP non supportata per file: GET",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "parse document"
+  }
+]
+
+================================================================================
+Question #37
+Question:
+Given this document, upload and parse it for answering the question: Explain the 'Retrieve-Rewrite-Read' process mentioned in the research.
+
+Plan generation latency (s): 221.5991341680019
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "upload and parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]Explain the 'Retrieve-Rewrite-Read' process mentioned in the research.[/TEXT]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "invoke question answering service"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "invoke question answering service"
+  }
+]
+
+================================================================================
+Question #38
+Question:
+Given this document, upload and parse it for answering the question: What is the limitation of the 'Fixed-size' strategy regarding semantic meaning?
+
+Plan generation latency (s): 179.06142089399873
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What is the limitation of the 'Fixed-size' strategy regarding semantic meaning?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "parse document for question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "parse document for question"
+  }
+]
+
+================================================================================
+Question #39
+Question:
+Given this document, upload and parse it for answering the question: How does the paper describe the 'Indexing' phase in a RAG pipeline?
+
+Plan generation latency (s): 250.63541336699927
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "http://question-answering:5600/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/invoke",
+      "input": "[TEXT]How does the paper describe the 'Indexing' phase in a RAG pipeline?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "generate answer"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": {
+      "message": "Document saved to Documents/paper033.pdf"
+    },
+    "status": "SUCCESS",
+    "status_code": 200,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "generate answer"
+  }
+]
+
+================================================================================
+Question #40
+Question:
+Given this document, upload and parse it for answering the question: What is 'fine-grained' retrieval and why is it used?
+
+Plan generation latency (s): 204.449521423001
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "http://question-answering:5600/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "parse document"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/invoke",
+      "input": "[TEXT]What is 'fine-grained' retrieval and why is it used?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": {
+      "message": "Document saved to Documents/paper033.pdf"
+    },
+    "status": "SUCCESS",
+    "status_code": 200,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": {
+      "message": "Document saved to Documents/paper033.pdf"
+    },
+    "status": "SUCCESS",
+    "status_code": 200,
+    "task_name": "parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  }
+]
+
+================================================================================
+Question #41
+Question:
+Given this document, upload and parse it for answering the question: Why did the authors choose a 'Parent-Child' relationship for their vector store?
+
+Plan generation latency (s): 163.95136113600165
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "http://question-answering:5600/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/invoke",
+      "input": "[TEXT]Why did the authors choose a 'Parent-Child' relationship for their vector store?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "parse document for question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": {
+      "message": "Document saved to Documents/paper033.pdf"
+    },
+    "status": "SUCCESS",
+    "status_code": 200,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "parse document for question"
+  }
+]
+
+================================================================================
+Question #42
+Question:
+Given this document, upload and parse it for answering the question: What is the 'Query Transformation' technique in Advanced RAG?
+
+Plan generation latency (s): 304.36255957400135
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload and parse document"
+    },
+    {
+      "endpoint": "/api/qa/invoke",
+      "input": "[TEXT]What is the 'Query Transformation' technique in Advanced RAG?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer query transformation question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL '/api/qa/upload': No scheme supplied. Perhaps you meant https:///api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL '/api/qa/invoke': No scheme supplied. Perhaps you meant https:///api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer query transformation question"
+  }
+]
+
+================================================================================
+Question #43
+Question:
+Given this document, upload and parse it for answering the question: Describe the 'Post-retrieval' refinement process.
+
+Plan generation latency (s): 150.3683258830024
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload and parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]Describe the 'Post-retrieval' refinement process[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  }
+]
+
+================================================================================
+Question #44
+Question:
+Given this document, upload and parse it for answering the question: What specific challenge does the research mention regarding OCR integration?
+
+Plan generation latency (s): 179.850248267001
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What specific challenge does the research mention regarding OCR integration?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Parse document for question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Parse document for question"
+  }
+]
+
+================================================================================
+Question #45
+Question:
+Given this document, upload and parse it for answering the question: What were the results of the paragraph-based strategy in the automatic evaluation for BERTScore?
+
+Plan generation latency (s): 195.68098864400235
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "upload and parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What were the results of the paragraph-based strategy in the automatic evaluation for BERTScore?[/TEXT]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  }
+]
+
+================================================================================
+Question #46
+Question:
+Given this document, upload and parse it for answering the question: How does the ROUGE-L metric differ from ROUGE-N?
+
+Plan generation latency (s): 152.60158373299782
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload and parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]How does the ROUGE-L metric differ from ROUGE-N?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question about ROUGE metrics"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question about ROUGE metrics"
+  }
+]
+
+================================================================================
+Question #47
+Question:
+Given this document, upload and parse it for answering the question: Why is the 'anakin87/Phi-3.5-mini-ITA' model considered suitable for this study?
+
+Plan generation latency (s): 170.66986215200086
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]Why is the 'anakin87/Phi-3.5-mini-ITA' model considered suitable for this study?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Answer question"
+  }
+]
+
+================================================================================
+Question #48
+Question:
+Given this document, upload and parse it for answering the question: What did the 'Semantic strategy' evaluation reveal about its performance?
+
+Plan generation latency (s): 204.82455247799953
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What did the 'Semantic strategy' evaluation reveal about its performance?[/TEXT]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "parse and answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "parse and answer question"
+  }
+]
+
+================================================================================
+Question #49
+Question:
+Given this document, upload and parse it for answering the question: How does the 'mode' calculation help in multi-page documents?
+
+Plan generation latency (s): 218.91154773699964
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "http://question-answering:5600/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Upload document"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/invoke",
+      "input": "[TEXT]How does the 'mode' calculation help in multi-page documents?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Parse document for question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": {
+      "message": "Document saved to Documents/paper033.pdf"
+    },
+    "status": "SUCCESS",
+    "status_code": 200,
+    "task_name": "Upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Parse document for question"
+  }
+]
+
+================================================================================
+Question #50
+Question:
+Given this document, upload and parse it for answering the question: What are 'hallucinations' in the context of LLMs?
+
+Plan generation latency (s): 132.51940328599812
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What are 'hallucinations' in the context of LLMs?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "parse document for question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "parse document for question"
+  }
+]
+
+================================================================================
+Question #51
+Question:
+Given this document, upload and parse it for answering the question: How does the system identify the end of a paragraph?
+
+Plan generation latency (s): 169.70210509699973
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Upload and parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]How does the system identify the end of a paragraph?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "Answer question about paragraph ending"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Answer question about paragraph ending"
+  }
+]
+
+================================================================================
+Question #52
+Question:
+Given this document, upload and parse it for answering the question: What is the 'Self-RAG' approach in Modular RAG?
+
+Plan generation latency (s): 171.7635872560022
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload and parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What is the 'Self-RAG' approach in Modular RAG?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question about Self-RAG in Modular RAG"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question about Self-RAG in Modular RAG"
+  }
+]
+
+================================================================================
+Question #53
+Question:
+Given this document, upload and parse it for answering the question: What was the expert consensus on the 'fixed-size' strategy in the interviews?
+
+Plan generation latency (s): 164.78320933699797
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "http://question-answering:5600/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/invoke",
+      "input": "[TEXT]What was the expert consensus on the 'fixed-size' strategy in the interviews?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "generate answer"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": {
+      "message": "Document saved to Documents/paper033.pdf"
+    },
+    "status": "SUCCESS",
+    "status_code": 200,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "generate answer"
+  }
+]
+
+================================================================================
+Question #54
+Question:
+Given this document, upload and parse it for answering the question: Explain the importance of 'embedding vectors' in the retrieval process.
+
+Plan generation latency (s): 148.25401788999807
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "http://question-answering:5600/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload and parse document"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/invoke",
+      "input": "[TEXT]Explain the importance of 'embedding vectors' in the retrieval process[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question about embedding vectors"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": {
+      "message": "Document saved to Documents/paper033.pdf"
+    },
+    "status": "SUCCESS",
+    "status_code": 200,
+    "task_name": "upload and parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question about embedding vectors"
+  }
+]
+
+================================================================================
+Question #55
+Question:
+Given this document, upload and parse it for answering the question: What is 'Contextual recall' in the RAGAS framework?
+
+Plan generation latency (s): 172.88152661000277
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]What is 'Contextual recall' in the RAGAS framework?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  }
+]
+
+================================================================================
+Question #56
+Question:
+Given this document, upload and parse it for answering the question: How does the system handle 'titles' in the paragraph-based strategy?
+
+Plan generation latency (s): 160.25750122399768
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]How does the system handle 'titles' in the paragraph-based strategy?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "parse document for question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "parse document for question"
+  }
+]
+
+================================================================================
+Question #57
+Question:
+Given this document, upload and parse it for answering the question: Why did the researchers evaluate the system using territorial planning documents?
+
+Plan generation latency (s): 171.49514602400086
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]Why did the researchers evaluate the system using territorial planning documents?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  }
+]
+
+================================================================================
+Question #58
+Question:
+Given this document, upload and parse it for answering the question: What is 'Metadata filtering'?
+
+Plan generation latency (s): 146.86363329400046
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "http://question-answering:5600/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/invoke",
+      "input": "[TEXT]What is 'Metadata filtering'[/TEXT]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "parse document for question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": {
+      "message": "Document saved to Documents/paper033.pdf"
+    },
+    "status": "SUCCESS",
+    "status_code": 200,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "parse document for question"
+  }
+]
+
+================================================================================
+Question #59
+Question:
+Given this document, upload and parse it for answering the question: How does the 'Pre-retrieval' stage affect overall system performance?
+
+Plan generation latency (s): 187.6336814489987
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "upload document"
+    },
+    {
+      "endpoint": "POST /api/qa/upload",
+      "input": "[TEXT]How does the 'Pre-retrieval' stage affect overall system performance?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "parse document"
+    },
+    {
+      "endpoint": "POST /api/qa/invoke",
+      "input": "[TEXT]How does the 'Pre-retrieval' stage affect overall system performance?[/TEXT]",
+      "operation": "POST",
+      "service_id": "question-answering",
+      "task_name": "answer question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/upload': No scheme supplied. Perhaps you meant https://POST /api/qa/upload?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "parse document"
+  },
+  {
+    "operation": "POST",
+    "result": "Invalid URL 'POST /api/qa/invoke': No scheme supplied. Perhaps you meant https://POST /api/qa/invoke?",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "answer question"
+  }
+]
+
+================================================================================
+Question #60
+Question:
+Given this document, upload and parse it for answering the question: What conclusion did the authors draw regarding document structure?
+
+Plan generation latency (s): 167.64006050600074
+
+Execution Plan:
+{
+  "tasks": [
+    {
+      "endpoint": "http://question-answering:5600/api/qa/upload",
+      "input": "[FILE]paper033.pdf[/FILE]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "Upload document"
+    },
+    {
+      "endpoint": "http://question-answering:5600/api/qa/invoke",
+      "input": "[TEXT]What conclusion did the authors draw regarding document structure?[/TEXT]",
+      "operation": "POST",
+      "service_id": "svc-001",
+      "task_name": "Parse document for question"
+    }
+  ]
+}
+
+Execution Results:
+[
+  {
+    "operation": "POST",
+    "result": {
+      "message": "Document saved to Documents/paper033.pdf"
+    },
+    "status": "SUCCESS",
+    "status_code": 200,
+    "task_name": "Upload document"
+  },
+  {
+    "operation": "POST",
+    "result": "'str' object is not callable",
+    "status": "EXCEPTION",
+    "status_code": 500,
+    "task_name": "Parse document for question"
+  }
+]
