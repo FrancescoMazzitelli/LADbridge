@@ -8,8 +8,8 @@ kaleido.get_chrome_sync()
 LATENCY_FILES = {
     #"2 VMs": "dist-2/baseline/latencies.csv",
     #"4 VMs": "dist-4/baseline/latencies.csv",
-    "8 VMs": "dist-8/delayed/latencies.csv",
-    "Centralized": "master-llm/delayed/latencies.csv"
+    "8 VMs": "dist-8/baseline/latencies.csv",
+    #"Centralized": "master-llm/delayed/latencies.csv"
 }
 SCATTER_OUT = "latency_scatter_combined.pdf"
 BOXPLOT_OUT = "latency_boxplot_combined.pdf"
@@ -19,7 +19,7 @@ BAR_OUT = "latency_bars_combined.pdf"
 
 def load_latencies(csv_path):
     df = pd.read_csv(csv_path)
-    return df["latency"].tolist()
+    return df["latency_s"].tolist()
 
 def calculate_qos_metrics(latencies, label):
     lat = np.array(latencies)

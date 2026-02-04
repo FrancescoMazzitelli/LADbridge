@@ -3,12 +3,9 @@ import requests
 import json
 import os
 from datetime import datetime
-from statistics import mean
 import pandas as pd
-import plotly.graph_objects as go
-import kaleido
-kaleido.get_chrome_sync()
-
+import time
+import threading
 
 # ================= CONFIG =================
 BASE_URL = "http://localhost:5500/api/control/invoke"
@@ -16,171 +13,189 @@ CSV_FILE = "questions.csv"
 PDF_FILE = "paper033.pdf"
 OUTPUT_FILE = "results.txt"
 LATENCY_CSV = "latencies.csv"
-SCATTER_OUT = "latency_scatter.pdf"
-BOXPLOT_OUT = "latency_boxplot.pdf"
 TIMEOUT = 3600
+SAMPLING_INTERVAL = 0.2
+
+NODE_EXPORTERS = {
+    "node1": "http://172.31.20.20:8080/metrics",
+    "node2": "http://172.31.20.12:8080/metrics",
+    "node3": "http://172.31.20.13:8080/metrics",
+    "node4": "http://172.31.20.14:8080/metrics",
+    "node5": "http://172.31.20.15:8080/metrics",
+    "node6": "http://172.31.20.16:8080/metrics",
+    "node7": "http://172.31.20.17:8080/metrics",
+    "node8": "http://172.31.20.18:8080/metrics"
+}
 # ==========================================
 
+# ---------- Helpers ----------
 
 def load_questions(csv_path):
-    questions = []
     with open(csv_path, newline="", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            questions.append(row["question"])
-    return questions
-
+        return [row["question"] for row in csv.DictReader(f)]
 
 def invoke_controller(question, pdf_path):
     with open(pdf_path, "rb") as pdf_file:
-        files = {
-            "file": (os.path.basename(pdf_path), pdf_file, "application/pdf")
-        }
-        data = {
-            "input": question
-        }
+        files = {"file": (os.path.basename(pdf_path), pdf_file, "application/pdf")}
+        data = {"input": question}
+        response = requests.post(BASE_URL, files=files, data=data, timeout=TIMEOUT)
 
-        response = requests.post(
-            BASE_URL,
-            files=files,
-            data=data,
-            timeout=TIMEOUT
-        )
+    req_bytes = len(response.request.body or b"")
+    resp_bytes = len(response.content)
+    return response, req_bytes, resp_bytes
 
-    return response
+def fetch_node_metrics(url):
+    r = requests.get(url, timeout=3600)
+    r.raise_for_status()
+    metrics = {}
+    for line in r.text.splitlines():
+        if line.startswith("#") or not line.strip():
+            continue
+        metric, value = line.rsplit(" ", 1)
+        try:
+            metrics[metric] = float(value)
+        except ValueError:
+            pass
+    return metrics
 
+def sample_node_metrics(buffers, stop_event):
+    """Esegue il polling dei metrics per tutti i nodi finché stop_event non è settato."""
+    while not stop_event.is_set():
+        for node, url in NODE_EXPORTERS.items():
+            try:
+                buffers[node].append(fetch_node_metrics(url))
+            except Exception as e:
+                print(f"[WARN] {node}: metrics read failed: {e}")
+        time.sleep(SAMPLING_INTERVAL)
 
-def write_result(f, idx, question, response):
-    f.write(f"\n{'='*80}\n")
-    f.write(f"Question #{idx}\n")
-    f.write(f"Question:\n{question}\n\n")
+# ---------- Aggregazioni ----------
 
-    if response.status_code != 200:
-        f.write(f"[ERROR] HTTP {response.status_code}\n")
-        f.write(response.text + "\n")
-        return None
+def compute_avg_mem(snapshots):
+    vals = [s["node_memory_Active_bytes"] for s in snapshots if "node_memory_Active_bytes" in s]
+    return sum(vals) / len(vals) if vals else 0.0
 
-    try:
-        result_json = response.json()
-    except Exception:
-        f.write("[ERROR] Response is not JSON\n")
-        f.write(response.text + "\n")
-        return None
+def compute_cpu_top_percent(snapshots, duration):
+    """
+    CPU top-style per nodo:
+    100% = 1 core pieno
+    250% = 2.5 core
+    """
+    if duration <= 0 or len(snapshots) < 2:
+        return 0.0
 
-    plan = result_json.get("execution_plan")
-    results = result_json.get("execution_results")
-    latency = result_json.get("plan_generation_latency")
+    total_cpu_seconds = 0.0
+    for i in range(1, len(snapshots)):
+        prev, curr = snapshots[i - 1], snapshots[i]
+        for k, v in curr.items():
+            if not k.startswith("node_cpu_seconds_total") or 'mode="idle"' in k:
+                continue
+            delta = v - prev.get(k, v)
+            if delta > 0:
+                total_cpu_seconds += delta
 
-    f.write(f"Plan generation latency (s): {latency}\n\n")
+    return (total_cpu_seconds / duration) * 100.0
 
-    f.write("Execution Plan:\n")
-    f.write(json.dumps(plan, indent=2, ensure_ascii=False))
-    f.write("\n\n")
+def compute_network_rates(snapshots, duration):
+    if duration <= 0 or len(snapshots) < 2:
+        return 0.0, 0.0
 
-    f.write("Execution Results:\n")
-    f.write(json.dumps(results, indent=2, ensure_ascii=False))
-    f.write("\n")
+    rx0 = sum(v for k, v in snapshots[0].items() if k.startswith("node_network_receive_bytes_total"))
+    rx1 = sum(v for k, v in snapshots[-1].items() if k.startswith("node_network_receive_bytes_total"))
+    tx0 = sum(v for k, v in snapshots[0].items() if k.startswith("node_network_transmit_bytes_total"))
+    tx1 = sum(v for k, v in snapshots[-1].items() if k.startswith("node_network_transmit_bytes_total"))
 
-    return latency
+    return (rx1 - rx0) / duration, (tx1 - tx0) / duration
 
+# ---------- Output ----------
 
-# ================= PLOTTING =================
+def write_result(f, idx, question, latency, per_node_usage, cluster_usage):
+    f.write(f"\n{'=' * 80}\n")
+    f.write(f"Question #{idx}\n{question}\n\n")
+    f.write(f"Latency (s): {latency:.3f}\n\n")
 
-def save_latencies_csv(latencies):
-    df = pd.DataFrame({"latency": latencies})
-    df.to_csv(LATENCY_CSV, index=False)
-    print(f"✅ Latencies saved to {LATENCY_CSV}")
+    f.write("Resource usage per node:\n")
+    for node, usage in per_node_usage.items():
+        f.write(f"- {node}: CPU {usage['cpu_percent_top']:.2f}%, "
+                f"Mem {usage['mem_bytes'] / 1e9:.2f} GB, "
+                f"RX {usage['rx_bytes_per_s']:.2f} B/s, "
+                f"TX {usage['tx_bytes_per_s']:.2f} B/s\n")
 
+    f.write("\nCluster aggregate usage:\n")
+    f.write(f"CPU (sum cores%): {cluster_usage['cpu_percent_top']:.2f}%\n")
+    f.write(f"Memory: {cluster_usage['mem_bytes'] / 1e9:.2f} GB\n")
+    f.write(f"Network RX: {cluster_usage['rx_bytes_per_s']:.2f} B/s\n")
+    f.write(f"Network TX: {cluster_usage['tx_bytes_per_s']:.2f} B/s\n")
 
-def plot_scatter(latencies):
-    x_vals = list(range(1, len(latencies) + 1))
+def save_latencies_csv(latencies, usages):
+    rows = []
+    for i, (lat, usage) in enumerate(zip(latencies, usages), start=1):
+        row = {"question_idx": i, "latency_s": lat}
+        row.update(usage)
+        rows.append(row)
+    pd.DataFrame(rows).to_csv(LATENCY_CSV, index=False)
+    print(f"✅ Saved {LATENCY_CSV}")
 
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(
-        x=x_vals,
-        y=latencies,
-        mode="markers+lines",
-        marker=dict(size=8),
-        name="Plan generation latency"
-    ))
-
-    fig.update_layout(
-        title="Plan Generation Latency per Question",
-        xaxis_title="Question index",
-        yaxis_title="Latency (seconds)",
-        xaxis=dict(tickmode="array", tickvals=x_vals),
-        template="plotly_white"
-    )
-
-    fig.write_image(SCATTER_OUT)
-    print(f"📊 Scatter plot saved to {SCATTER_OUT}")
-
-
-def plot_boxplot(latencies):
-    avg_latency = mean(latencies)
-
-    fig = go.Figure()
-    fig.add_trace(go.Box(
-        y=latencies,
-        boxmean=True,
-        name="Latency distribution"
-    ))
-
-    fig.add_annotation(
-        text=f"Mean latency = {avg_latency:.3f} s",
-        x=0.5,
-        y=avg_latency,
-        xref="paper",
-        yref="y",
-        showarrow=False,
-        font=dict(size=12),
-        bgcolor="rgba(255,255,255,0.7)",
-        bordercolor="black"
-    )
-
-    fig.update_layout(
-        title="Distribution of Plan Generation Latencies",
-        yaxis_title="Latency (seconds)",
-        template="plotly_white"
-    )
-
-    fig.write_image(BOXPLOT_OUT)
-    print(f"📦 Boxplot saved to {BOXPLOT_OUT}")
-
-
-# ================= MAIN =================
+# ---------- MAIN ----------
 
 def main():
-    if not os.path.exists(PDF_FILE):
-        raise FileNotFoundError(f"PDF not found: {PDF_FILE}")
-
     questions = load_questions(CSV_FILE)
-    latencies = []
-    #responses = []
+    latencies, usages = [], []
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-        f.write("Execution results\n")
-        f.write(f"Timestamp: {datetime.now().isoformat()}\n")
+        f.write(f"Run at {datetime.now().isoformat()}\n")
         f.write(f"Total questions: {len(questions)}\n")
 
-        for idx, question in enumerate(questions, start=1):
-            print(f"[{idx}/{len(questions)}] Processing question...")
-            try:
-                response = invoke_controller(question, PDF_FILE)
-                latency = write_result(f, idx, question, response)
-                if latency is not None:
-                    latencies.append(latency)
-                #if response is not None:
-                    #responses.append(response)
-            except Exception as e:
-                f.write(f"\n[EXCEPTION] {str(e)}\n")
+        for i, q in enumerate(questions, 1):
+            print(f"[{i}/{len(questions)}] Processing")
 
-    save_latencies_csv(latencies)
-    plot_scatter(latencies)
-    plot_boxplot(latencies)
+            # Setup snapshot buffers per nodo
+            snapshots = {node: [] for node in NODE_EXPORTERS}
+            stop = threading.Event()
+            t = threading.Thread(target=sample_node_metrics, args=(snapshots, stop))
+            t.start()
 
-    print("\n✅ Experiment completed successfully")
+            start = time.time()
+            response, req_b, resp_b = invoke_controller(q, PDF_FILE)
+            latency = time.time() - start
 
+            stop.set()
+            t.join()
+
+            # Calcola metriche per nodo
+            per_node_usage = {}
+            for node, node_snapshots in snapshots.items():
+                per_node_usage[node] = {
+                    "cpu_percent_top": compute_cpu_top_percent(node_snapshots, latency),
+                    "mem_bytes": compute_avg_mem(node_snapshots),
+                    "rx_bytes_per_s": compute_network_rates(node_snapshots, latency)[0],
+                    "tx_bytes_per_s": compute_network_rates(node_snapshots, latency)[1],
+                }
+
+            # Aggrega cluster-level
+            cluster_usage = {
+                "cpu_percent_top": sum(u["cpu_percent_top"] for u in per_node_usage.values()),
+                "mem_bytes": sum(u["mem_bytes"] for u in per_node_usage.values()),
+                "rx_bytes_per_s": sum(u["rx_bytes_per_s"] for u in per_node_usage.values()),
+                "tx_bytes_per_s": sum(u["tx_bytes_per_s"] for u in per_node_usage.values()),
+            }
+
+            # Scrive risultati
+            write_result(f, i, q, latency, per_node_usage, cluster_usage)
+
+            # Salva latenza + cluster-level per CSV
+            usage_csv = {
+                "cluster_cpu_percent_top": cluster_usage["cpu_percent_top"],
+                "cluster_mem_bytes": cluster_usage["mem_bytes"],
+                "cluster_rx_bytes_per_s": cluster_usage["rx_bytes_per_s"],
+                "cluster_tx_bytes_per_s": cluster_usage["tx_bytes_per_s"],
+                "request_bytes": req_b,
+                "response_bytes": resp_b,
+            }
+            latencies.append(latency)
+            usages.append(usage_csv)
+
+    save_latencies_csv(latencies, usages)
+    print("✅ Experiment completed")
 
 if __name__ == "__main__":
     main()

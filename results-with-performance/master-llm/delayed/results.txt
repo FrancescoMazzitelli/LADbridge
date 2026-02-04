@@ -1,0 +1,902 @@
+Run at 2026-02-03T21:02:02.495787
+Total questions: 60
+
+================================================================================
+Question #1
+Given this document, upload and parse it for answering the question: What is the primary objective of Retrieval Augmented Generation (RAG)?
+
+Latency (s): 192.354
+
+Resource usage per node:
+- node1: CPU 2868.73%, Mem 1.20 GB, RX 2730.41 B/s, TX 26437.59 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2868.73%
+Memory: 1.20 GB
+Network RX: 2730.41 B/s
+Network TX: 26437.59 B/s
+
+================================================================================
+Question #2
+Given this document, upload and parse it for answering the question: What are the three main categories of RAG architectures discussed?
+
+Latency (s): 79.200
+
+Resource usage per node:
+- node1: CPU 2992.29%, Mem 1.20 GB, RX 2650.38 B/s, TX 25442.29 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2992.29%
+Memory: 1.20 GB
+Network RX: 2650.38 B/s
+Network TX: 25442.29 B/s
+
+================================================================================
+Question #3
+Given this document, upload and parse it for answering the question: What does the Retriever component do in a RAG system?
+
+Latency (s): 117.483
+
+Resource usage per node:
+- node1: CPU 3053.52%, Mem 1.21 GB, RX 2769.11 B/s, TX 26356.65 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3053.52%
+Memory: 1.21 GB
+Network RX: 2769.11 B/s
+Network TX: 26356.65 B/s
+
+================================================================================
+Question #4
+Given this document, upload and parse it for answering the question: How does the proposed paragraph-based strategy generate coherent chunks?
+
+Latency (s): 111.900
+
+Resource usage per node:
+- node1: CPU 3040.95%, Mem 1.21 GB, RX 2760.86 B/s, TX 26459.82 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3040.95%
+Memory: 1.21 GB
+Network RX: 2760.86 B/s
+Network TX: 26459.82 B/s
+
+================================================================================
+Question #5
+Given this document, upload and parse it for answering the question: What specific Python module was used for document content extraction?
+
+Latency (s): 113.652
+
+Resource usage per node:
+- node1: CPU 3046.58%, Mem 1.20 GB, RX 2706.85 B/s, TX 26048.74 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3046.58%
+Memory: 1.20 GB
+Network RX: 2706.85 B/s
+Network TX: 26048.74 B/s
+
+================================================================================
+Question #6
+Given this document, upload and parse it for answering the question: How is the font size threshold for a paragraph body determined?
+
+Latency (s): 98.619
+
+Resource usage per node:
+- node1: CPU 3054.52%, Mem 1.20 GB, RX 2713.18 B/s, TX 26384.12 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3054.52%
+Memory: 1.20 GB
+Network RX: 2713.18 B/s
+Network TX: 26384.12 B/s
+
+================================================================================
+Question #7
+Given this document, upload and parse it for answering the question: What defines a 'parent' chunk in the proposed strategy?
+
+Latency (s): 93.442
+
+Resource usage per node:
+- node1: CPU 3021.93%, Mem 1.20 GB, RX 2695.77 B/s, TX 26032.57 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3021.93%
+Memory: 1.20 GB
+Network RX: 2695.77 B/s
+Network TX: 26032.57 B/s
+
+================================================================================
+Question #8
+Given this document, upload and parse it for answering the question: What is the role of 'child' chunks in the retrieval process?
+
+Latency (s): 395.499
+
+Resource usage per node:
+- node1: CPU 3130.68%, Mem 1.21 GB, RX 2763.93 B/s, TX 26675.49 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3130.68%
+Memory: 1.21 GB
+Network RX: 2763.93 B/s
+Network TX: 26675.49 B/s
+
+================================================================================
+Question #9
+Given this document, upload and parse it for answering the question: Which vector database was utilized for storing document embeddings?
+
+Latency (s): 114.198
+
+Resource usage per node:
+- node1: CPU 2410.36%, Mem 1.21 GB, RX 2539.37 B/s, TX 24944.74 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2410.36%
+Memory: 1.21 GB
+Network RX: 2539.37 B/s
+Network TX: 24944.74 B/s
+
+================================================================================
+Question #10
+Given this document, upload and parse it for answering the question: What specific LLM was chosen for its ability to process large contexts and speak Italian?
+
+Latency (s): 126.593
+
+Resource usage per node:
+- node1: CPU 3061.70%, Mem 1.21 GB, RX 2787.65 B/s, TX 26776.22 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3061.70%
+Memory: 1.21 GB
+Network RX: 2787.65 B/s
+Network TX: 26776.22 B/s
+
+================================================================================
+Question #11
+Given this document, upload and parse it for answering the question: Why was the 'intfloat/multilingual-e5-large-instruct' model employed?
+
+Latency (s): 141.387
+
+Resource usage per node:
+- node1: CPU 3077.36%, Mem 1.20 GB, RX 2794.93 B/s, TX 26870.07 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3077.36%
+Memory: 1.20 GB
+Network RX: 2794.93 B/s
+Network TX: 26870.07 B/s
+
+================================================================================
+Question #12
+Given this document, upload and parse it for answering the question: What is the 'fixed-size strategy' for chunking?
+
+Latency (s): 105.123
+
+Resource usage per node:
+- node1: CPU 3049.40%, Mem 1.21 GB, RX 2746.94 B/s, TX 26512.16 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3049.40%
+Memory: 1.21 GB
+Network RX: 2746.94 B/s
+Network TX: 26512.16 B/s
+
+================================================================================
+Question #13
+Given this document, upload and parse it for answering the question: How does the 'recursive strategy' function?
+
+Latency (s): 138.874
+
+Resource usage per node:
+- node1: CPU 2534.16%, Mem 1.21 GB, RX 2707.66 B/s, TX 25751.24 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2534.16%
+Memory: 1.21 GB
+Network RX: 2707.66 B/s
+Network TX: 25751.24 B/s
+
+================================================================================
+Question #14
+Given this document, upload and parse it for answering the question: What is the 'document specific strategy'?
+
+Latency (s): 152.623
+
+Resource usage per node:
+- node1: CPU 2599.47%, Mem 1.21 GB, RX 2713.33 B/s, TX 25919.25 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2599.47%
+Memory: 1.21 GB
+Network RX: 2713.33 B/s
+Network TX: 25919.25 B/s
+
+================================================================================
+Question #15
+Given this document, upload and parse it for answering the question: What is a major drawback of the 'semantic strategy' according to the paper?
+
+Latency (s): 111.172
+
+Resource usage per node:
+- node1: CPU 3047.78%, Mem 1.21 GB, RX 2774.00 B/s, TX 26641.36 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3047.78%
+Memory: 1.21 GB
+Network RX: 2774.00 B/s
+Network TX: 26641.36 B/s
+
+================================================================================
+Question #16
+Given this document, upload and parse it for answering the question: What does the 'lost in the middle' phenomenon refer to?
+
+Latency (s): 106.069
+
+Resource usage per node:
+- node1: CPU 3023.32%, Mem 1.21 GB, RX 2742.37 B/s, TX 26475.83 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3023.32%
+Memory: 1.21 GB
+Network RX: 2742.37 B/s
+Network TX: 26475.83 B/s
+
+================================================================================
+Question #17
+Given this document, upload and parse it for answering the question: How does the system handle data contained in images or tables?
+
+Latency (s): 117.993
+
+Resource usage per node:
+- node1: CPU 3055.59%, Mem 1.21 GB, RX 2763.27 B/s, TX 26652.70 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3055.59%
+Memory: 1.21 GB
+Network RX: 2763.27 B/s
+Network TX: 26652.70 B/s
+
+================================================================================
+Question #18
+Given this document, upload and parse it for answering the question: What was the subject of the four documents used in the evaluation?
+
+Latency (s): 116.589
+
+Resource usage per node:
+- node1: CPU 3063.39%, Mem 1.21 GB, RX 2758.88 B/s, TX 26457.46 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3063.39%
+Memory: 1.21 GB
+Network RX: 2758.88 B/s
+Network TX: 26457.46 B/s
+
+================================================================================
+Question #19
+Given this document, upload and parse it for answering the question: How many experts participated in the empirical evaluation?
+
+Latency (s): 186.232
+
+Resource usage per node:
+- node1: CPU 2732.45%, Mem 1.21 GB, RX 2733.46 B/s, TX 26145.60 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2732.45%
+Memory: 1.21 GB
+Network RX: 2733.46 B/s
+Network TX: 26145.60 B/s
+
+================================================================================
+Question #20
+Given this document, upload and parse it for answering the question: What percentage of appreciation did the paragraph-based strategy receive from experts?
+
+Latency (s): 94.994
+
+Resource usage per node:
+- node1: CPU 3034.91%, Mem 1.21 GB, RX 2733.34 B/s, TX 26331.10 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3034.91%
+Memory: 1.21 GB
+Network RX: 2733.34 B/s
+Network TX: 26331.10 B/s
+
+================================================================================
+Question #21
+Given this document, upload and parse it for answering the question: What does BERTScore measure?
+
+Latency (s): 124.434
+
+Resource usage per node:
+- node1: CPU 3077.24%, Mem 1.21 GB, RX 2771.51 B/s, TX 26562.68 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3077.24%
+Memory: 1.21 GB
+Network RX: 2771.51 B/s
+Network TX: 26562.68 B/s
+
+================================================================================
+Question #22
+Given this document, upload and parse it for answering the question: What is the purpose of the BLEU metric?
+
+Latency (s): 89.620
+
+Resource usage per node:
+- node1: CPU 3033.68%, Mem 1.21 GB, RX 2742.06 B/s, TX 26287.28 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3033.68%
+Memory: 1.21 GB
+Network RX: 2742.06 B/s
+Network TX: 26287.28 B/s
+
+================================================================================
+Question #23
+Given this document, upload and parse it for answering the question: How does METEOR improve upon the BLEU metric?
+
+Latency (s): 125.640
+
+Resource usage per node:
+- node1: CPU 2470.75%, Mem 1.21 GB, RX 2698.94 B/s, TX 25500.25 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2470.75%
+Memory: 1.21 GB
+Network RX: 2698.94 B/s
+Network TX: 25500.25 B/s
+
+================================================================================
+Question #24
+Given this document, upload and parse it for answering the question: What does the ROUGE metric emphasize?
+
+Latency (s): 94.973
+
+Resource usage per node:
+- node1: CPU 3035.90%, Mem 1.21 GB, RX 2756.16 B/s, TX 26295.39 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3035.90%
+Memory: 1.21 GB
+Network RX: 2756.16 B/s
+Network TX: 26295.39 B/s
+
+================================================================================
+Question #25
+Given this document, upload and parse it for answering the question: Why was the recursive strategy excluded from the final evaluation?
+
+Latency (s): 93.502
+
+Resource usage per node:
+- node1: CPU 3023.91%, Mem 1.21 GB, RX 2708.98 B/s, TX 26036.07 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3023.91%
+Memory: 1.21 GB
+Network RX: 2708.98 B/s
+Network TX: 26036.07 B/s
+
+================================================================================
+Question #26
+Given this document, upload and parse it for answering the question: What hardware was used to load the pre-trained model for evaluation?
+
+Latency (s): 137.359
+
+Resource usage per node:
+- node1: CPU 2550.63%, Mem 1.21 GB, RX 2631.25 B/s, TX 25733.18 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2550.63%
+Memory: 1.21 GB
+Network RX: 2631.25 B/s
+Network TX: 25733.18 B/s
+
+================================================================================
+Question #27
+Given this document, upload and parse it for answering the question: What is the 'Generate-Read' variant of Modular RAG?
+
+Latency (s): 96.870
+
+Resource usage per node:
+- node1: CPU 3038.49%, Mem 1.21 GB, RX 2688.59 B/s, TX 25823.92 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3038.49%
+Memory: 1.21 GB
+Network RX: 2688.59 B/s
+Network TX: 25823.92 B/s
+
+================================================================================
+Question #28
+Given this document, upload and parse it for answering the question: What is the 'Rewrite-Retrieve-Read' approach?
+
+Latency (s): 142.358
+
+Resource usage per node:
+- node1: CPU 2591.64%, Mem 1.21 GB, RX 2625.27 B/s, TX 25762.07 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2591.64%
+Memory: 1.21 GB
+Network RX: 2625.27 B/s
+Network TX: 25762.07 B/s
+
+================================================================================
+Question #29
+Given this document, upload and parse it for answering the question: How does the system identify a paragraph title?
+
+Latency (s): 133.722
+
+Resource usage per node:
+- node1: CPU 2533.27%, Mem 1.21 GB, RX 2613.44 B/s, TX 25641.91 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2533.27%
+Memory: 1.21 GB
+Network RX: 2613.44 B/s
+Network TX: 25641.91 B/s
+
+================================================================================
+Question #30
+Given this document, upload and parse it for answering the question: What were the results for the fixed-size strategy in the expert interview?
+
+Latency (s): 135.278
+
+Resource usage per node:
+- node1: CPU 3060.96%, Mem 1.21 GB, RX 2751.66 B/s, TX 26339.36 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3060.96%
+Memory: 1.21 GB
+Network RX: 2751.66 B/s
+Network TX: 26339.36 B/s
+
+================================================================================
+Question #31
+Given this document, upload and parse it for answering the question: What problem does the Advanced RAG architecture specifically address compared to Naive RAG?
+
+Latency (s): 119.422
+
+Resource usage per node:
+- node1: CPU 3063.08%, Mem 1.21 GB, RX 2744.41 B/s, TX 26466.63 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3063.08%
+Memory: 1.21 GB
+Network RX: 2744.41 B/s
+Network TX: 26466.63 B/s
+
+================================================================================
+Question #32
+Given this document, upload and parse it for answering the question: How does the paper define 'coarse-grained' retrieval?
+
+Latency (s): 94.171
+
+Resource usage per node:
+- node1: CPU 3041.08%, Mem 1.21 GB, RX 2727.37 B/s, TX 26072.85 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3041.08%
+Memory: 1.21 GB
+Network RX: 2727.37 B/s
+Network TX: 26072.85 B/s
+
+================================================================================
+Question #33
+Given this document, upload and parse it for answering the question: What is the statistical significance of using the 'mode' for font size?
+
+Latency (s): 107.546
+
+Resource usage per node:
+- node1: CPU 3058.41%, Mem 1.21 GB, RX 2752.28 B/s, TX 26646.78 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3058.41%
+Memory: 1.21 GB
+Network RX: 2752.28 B/s
+Network TX: 26646.78 B/s
+
+================================================================================
+Question #34
+What is a 'Modular RAG' architecture?
+
+Latency (s): 185.836
+
+Resource usage per node:
+- node1: CPU 3089.36%, Mem 1.21 GB, RX 2780.04 B/s, TX 26788.87 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3089.36%
+Memory: 1.21 GB
+Network RX: 2780.04 B/s
+Network TX: 26788.87 B/s
+
+================================================================================
+Question #35
+Given this document, upload and parse it for answering the question: How does the paragraph-based strategy improve the 'cohesion' of chunks?
+
+Latency (s): 128.169
+
+Resource usage per node:
+- node1: CPU 2602.33%, Mem 1.21 GB, RX 2717.44 B/s, TX 26008.24 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2602.33%
+Memory: 1.21 GB
+Network RX: 2717.44 B/s
+Network TX: 26008.24 B/s
+
+================================================================================
+Question #36
+Given this document, upload and parse it for answering the question: What role does the 'bounding box' metadata play in text extraction?
+
+Latency (s): 94.111
+
+Resource usage per node:
+- node1: CPU 3037.74%, Mem 1.21 GB, RX 2692.63 B/s, TX 26210.80 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3037.74%
+Memory: 1.21 GB
+Network RX: 2692.63 B/s
+Network TX: 26210.80 B/s
+
+================================================================================
+Question #37
+Given this document, upload and parse it for answering the question: Explain the 'Retrieve-Rewrite-Read' process mentioned in the research.
+
+Latency (s): 136.017
+
+Resource usage per node:
+- node1: CPU 2500.39%, Mem 1.21 GB, RX 2604.85 B/s, TX 25785.02 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2500.39%
+Memory: 1.21 GB
+Network RX: 2604.85 B/s
+Network TX: 25785.02 B/s
+
+================================================================================
+Question #38
+Given this document, upload and parse it for answering the question: What is the limitation of the 'Fixed-size' strategy regarding semantic meaning?
+
+Latency (s): 177.179
+
+Resource usage per node:
+- node1: CPU 2684.18%, Mem 1.21 GB, RX 2638.96 B/s, TX 26014.18 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2684.18%
+Memory: 1.21 GB
+Network RX: 2638.96 B/s
+Network TX: 26014.18 B/s
+
+================================================================================
+Question #39
+Given this document, upload and parse it for answering the question: How does the paper describe the 'Indexing' phase in a RAG pipeline?
+
+Latency (s): 118.362
+
+Resource usage per node:
+- node1: CPU 3061.43%, Mem 1.21 GB, RX 2709.75 B/s, TX 26617.10 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3061.43%
+Memory: 1.21 GB
+Network RX: 2709.75 B/s
+Network TX: 26617.10 B/s
+
+================================================================================
+Question #40
+Given this document, upload and parse it for answering the question: What is 'fine-grained' retrieval and why is it used?
+
+Latency (s): 104.321
+
+Resource usage per node:
+- node1: CPU 3052.45%, Mem 1.21 GB, RX 2706.79 B/s, TX 26248.96 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3052.45%
+Memory: 1.21 GB
+Network RX: 2706.79 B/s
+Network TX: 26248.96 B/s
+
+================================================================================
+Question #41
+Given this document, upload and parse it for answering the question: Why did the authors choose a 'Parent-Child' relationship for their vector store?
+
+Latency (s): 99.699
+
+Resource usage per node:
+- node1: CPU 3045.83%, Mem 1.21 GB, RX 2709.15 B/s, TX 26003.01 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3045.83%
+Memory: 1.21 GB
+Network RX: 2709.15 B/s
+Network TX: 26003.01 B/s
+
+================================================================================
+Question #42
+Given this document, upload and parse it for answering the question: What is the 'Query Transformation' technique in Advanced RAG?
+
+Latency (s): 114.965
+
+Resource usage per node:
+- node1: CPU 2550.76%, Mem 1.21 GB, RX 2655.76 B/s, TX 25395.12 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2550.76%
+Memory: 1.21 GB
+Network RX: 2655.76 B/s
+Network TX: 25395.12 B/s
+
+================================================================================
+Question #43
+Given this document, upload and parse it for answering the question: Describe the 'Post-retrieval' refinement process.
+
+Latency (s): 118.506
+
+Resource usage per node:
+- node1: CPU 2507.65%, Mem 1.21 GB, RX 2672.88 B/s, TX 25443.93 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2507.65%
+Memory: 1.21 GB
+Network RX: 2672.88 B/s
+Network TX: 25443.93 B/s
+
+================================================================================
+Question #44
+Given this document, upload and parse it for answering the question: What specific challenge does the research mention regarding OCR integration?
+
+Latency (s): 118.450
+
+Resource usage per node:
+- node1: CPU 2450.68%, Mem 1.21 GB, RX 2693.11 B/s, TX 25746.06 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2450.68%
+Memory: 1.21 GB
+Network RX: 2693.11 B/s
+Network TX: 25746.06 B/s
+
+================================================================================
+Question #45
+Given this document, upload and parse it for answering the question: What were the results of the paragraph-based strategy in the automatic evaluation for BERTScore?
+
+Latency (s): 128.805
+
+Resource usage per node:
+- node1: CPU 2561.46%, Mem 1.21 GB, RX 2603.89 B/s, TX 25625.27 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2561.46%
+Memory: 1.21 GB
+Network RX: 2603.89 B/s
+Network TX: 25625.27 B/s
+
+================================================================================
+Question #46
+Given this document, upload and parse it for answering the question: How does the ROUGE-L metric differ from ROUGE-N?
+
+Latency (s): 119.377
+
+Resource usage per node:
+- node1: CPU 3067.13%, Mem 1.21 GB, RX 2749.32 B/s, TX 26409.77 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3067.13%
+Memory: 1.21 GB
+Network RX: 2749.32 B/s
+Network TX: 26409.77 B/s
+
+================================================================================
+Question #47
+Given this document, upload and parse it for answering the question: Why is the 'anakin87/Phi-3.5-mini-ITA' model considered suitable for this study?
+
+Latency (s): 167.621
+
+Resource usage per node:
+- node1: CPU 3081.29%, Mem 1.21 GB, RX 2776.20 B/s, TX 26811.73 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3081.29%
+Memory: 1.21 GB
+Network RX: 2776.20 B/s
+Network TX: 26811.73 B/s
+
+================================================================================
+Question #48
+Given this document, upload and parse it for answering the question: What did the 'Semantic strategy' evaluation reveal about its performance?
+
+Latency (s): 112.176
+
+Resource usage per node:
+- node1: CPU 2401.07%, Mem 1.21 GB, RX 2501.72 B/s, TX 24847.65 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2401.07%
+Memory: 1.21 GB
+Network RX: 2501.72 B/s
+Network TX: 24847.65 B/s
+
+================================================================================
+Question #49
+Given this document, upload and parse it for answering the question: How does the 'mode' calculation help in multi-page documents?
+
+Latency (s): 143.937
+
+Resource usage per node:
+- node1: CPU 2619.24%, Mem 1.21 GB, RX 2602.70 B/s, TX 25672.56 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2619.24%
+Memory: 1.21 GB
+Network RX: 2602.70 B/s
+Network TX: 25672.56 B/s
+
+================================================================================
+Question #50
+Given this document, upload and parse it for answering the question: What are 'hallucinations' in the context of LLMs?
+
+Latency (s): 111.391
+
+Resource usage per node:
+- node1: CPU 3059.66%, Mem 1.21 GB, RX 2636.79 B/s, TX 25642.08 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3059.66%
+Memory: 1.21 GB
+Network RX: 2636.79 B/s
+Network TX: 25642.08 B/s
+
+================================================================================
+Question #51
+Given this document, upload and parse it for answering the question: How does the system identify the end of a paragraph?
+
+Latency (s): 87.548
+
+Resource usage per node:
+- node1: CPU 3005.83%, Mem 1.21 GB, RX 2624.35 B/s, TX 25230.72 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3005.83%
+Memory: 1.21 GB
+Network RX: 2624.35 B/s
+Network TX: 25230.72 B/s
+
+================================================================================
+Question #52
+Given this document, upload and parse it for answering the question: What is the 'Self-RAG' approach in Modular RAG?
+
+Latency (s): 105.336
+
+Resource usage per node:
+- node1: CPU 3053.75%, Mem 1.21 GB, RX 2652.30 B/s, TX 25712.39 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3053.75%
+Memory: 1.21 GB
+Network RX: 2652.30 B/s
+Network TX: 25712.39 B/s
+
+================================================================================
+Question #53
+Given this document, upload and parse it for answering the question: What was the expert consensus on the 'fixed-size' strategy in the interviews?
+
+Latency (s): 133.339
+
+Resource usage per node:
+- node1: CPU 3064.75%, Mem 1.21 GB, RX 2690.25 B/s, TX 26111.50 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3064.75%
+Memory: 1.21 GB
+Network RX: 2690.25 B/s
+Network TX: 26111.50 B/s
+
+================================================================================
+Question #54
+Given this document, upload and parse it for answering the question: Explain the importance of 'embedding vectors' in the retrieval process.
+
+Latency (s): 136.277
+
+Resource usage per node:
+- node1: CPU 2534.65%, Mem 1.21 GB, RX 2580.28 B/s, TX 25346.68 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2534.65%
+Memory: 1.21 GB
+Network RX: 2580.28 B/s
+Network TX: 25346.68 B/s
+
+================================================================================
+Question #55
+Given this document, upload and parse it for answering the question: What is 'Contextual recall' in the RAGAS framework?
+
+Latency (s): 129.004
+
+Resource usage per node:
+- node1: CPU 2517.75%, Mem 1.21 GB, RX 2514.80 B/s, TX 25265.67 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 2517.75%
+Memory: 1.21 GB
+Network RX: 2514.80 B/s
+Network TX: 25265.67 B/s
+
+================================================================================
+Question #56
+Given this document, upload and parse it for answering the question: How does the system handle 'titles' in the paragraph-based strategy?
+
+Latency (s): 134.640
+
+Resource usage per node:
+- node1: CPU 3079.04%, Mem 1.21 GB, RX 2709.42 B/s, TX 25840.94 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3079.04%
+Memory: 1.21 GB
+Network RX: 2709.42 B/s
+Network TX: 25840.94 B/s
+
+================================================================================
+Question #57
+Given this document, upload and parse it for answering the question: Why did the researchers evaluate the system using territorial planning documents?
+
+Latency (s): 99.897
+
+Resource usage per node:
+- node1: CPU 3052.46%, Mem 1.21 GB, RX 2621.95 B/s, TX 25837.93 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3052.46%
+Memory: 1.21 GB
+Network RX: 2621.95 B/s
+Network TX: 25837.93 B/s
+
+================================================================================
+Question #58
+Given this document, upload and parse it for answering the question: What is 'Metadata filtering'?
+
+Latency (s): 94.605
+
+Resource usage per node:
+- node1: CPU 3053.13%, Mem 1.21 GB, RX 2600.19 B/s, TX 25409.36 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3053.13%
+Memory: 1.21 GB
+Network RX: 2600.19 B/s
+Network TX: 25409.36 B/s
+
+================================================================================
+Question #59
+Given this document, upload and parse it for answering the question: How does the 'Pre-retrieval' stage affect overall system performance?
+
+Latency (s): 108.755
+
+Resource usage per node:
+- node1: CPU 3059.17%, Mem 1.21 GB, RX 2608.58 B/s, TX 25320.27 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3059.17%
+Memory: 1.21 GB
+Network RX: 2608.58 B/s
+Network TX: 25320.27 B/s
+
+================================================================================
+Question #60
+Given this document, upload and parse it for answering the question: What conclusion did the authors draw regarding document structure?
+
+Latency (s): 106.680
+
+Resource usage per node:
+- node1: CPU 3055.71%, Mem 1.21 GB, RX 2694.78 B/s, TX 26227.71 B/s
+
+Cluster aggregate usage:
+CPU (sum cores%): 3055.71%
+Memory: 1.21 GB
+Network RX: 2694.78 B/s
+Network TX: 26227.71 B/s
